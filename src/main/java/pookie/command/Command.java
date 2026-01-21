@@ -1,3 +1,4 @@
+package pookie.command;
 public abstract class Command {
 
 

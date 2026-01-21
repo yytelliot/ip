@@ -1,3 +1,4 @@
+package pookie.command;
 public class AddCommand extends Command {
 
     private final String[] args;
