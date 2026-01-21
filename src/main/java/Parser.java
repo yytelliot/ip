@@ -15,6 +15,12 @@ public class Parser {
         String[] parts = input.split(" ");
         String command = parts[0];
         switch (command) {
+            case "mark" -> {
+                return new MarkCommand(parts);
+            }
+            case "unmark" -> {
+                return new UnmarkCommand(parts);
+            }
             default -> {
                 return new AddCommand(parts);
             }

@@ -1,15 +1,15 @@
 public class TaskList {
 
-    private static final String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
-    public static void addTask(String task) throws IllegalStateException {
+    public static void addTask(String task) {
 
         if (taskCount >= tasks.length) {
             throw new IllegalStateException("UwU! Task list is full! Cannot add more tasks.");
         }
 
-        tasks[taskCount] = task;
+        tasks[taskCount] = new Task(task);
         taskCount++;
     }
 
@@ -17,7 +17,7 @@ public class TaskList {
         return taskCount;
     }
 
-    public static String getTask(int index) {
+    public static Task getTask(int index) {
         if (index < 0 || index >= taskCount) {
             throw new IndexOutOfBoundsException("That's not a valid index dummy! -w-");
         }
