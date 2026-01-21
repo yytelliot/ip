@@ -1,6 +1,11 @@
-import java.util.*;
+package pookie;
 
+import java.util.Scanner;
 import pookie.command.Command;
+
+/**
+ * Main class for the Pookie X3 application.
+ */
 public class Pookie {
     private static final String LINE = "==============================";
 
@@ -13,19 +18,30 @@ public class Pookie {
         System.out.println("Hello! I'm Pookie :3");
         System.out.println("What can I do for you? OwO"); 
         System.out.println(LINE + "\n");
+        try {
 
-        while (true) {
-            String userInput = sc.nextLine();
-            Command command = parser.parse(userInput);
-            String response = command.execute();
+            // Main loop
+            while (true) {
 
-            System.out.println(LINE);
-            System.out.println(response);
-            System.out.println(LINE + "\n");
+                // read user input
+                String userInput = sc.nextLine();
 
-            if (command.isExit()) {
-                break;
+                // parse and execute command
+                Command command = parser.parse(userInput);
+                String response = command.execute();
+
+                // print response
+                System.out.println(LINE);
+                System.out.println(response);
+                System.out.println(LINE + "\n");
+
+                // exit if command is exit command
+                if (command.isExit()) {
+                    break;
+                }
             }
+        } finally {
+            sc.close();
         }
     }
 }

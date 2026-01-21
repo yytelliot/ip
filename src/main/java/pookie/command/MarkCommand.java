@@ -1,4 +1,11 @@
 package pookie.command;
+
+import pookie.task.Task;
+import pookie.task.TaskList;
+
+/**
+ * Command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final String[] args;
 
@@ -9,11 +16,13 @@ public class MarkCommand extends Command {
     @Override
     public String execute() {
 
+        // check if index is provided
         if (args.length < 2) {
             return "Please provide the index of the task to mark! >w<";
         }
 
         Task task;
+
         try {
             int index = Integer.parseInt(args[1]) - 1;
             task = TaskList.getTask(index);

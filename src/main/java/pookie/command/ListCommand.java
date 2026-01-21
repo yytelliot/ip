@@ -1,4 +1,10 @@
 package pookie.command;
+
+import pookie.task.TaskList;
+
+/**
+ * Command to list all tasks in the task list.
+ */
 public class ListCommand extends Command {
 
     @Override

@@ -9,9 +9,16 @@ import pookie.command.UnmarkCommand;
 
 public class Parser {
 
+    /**
+     * Parses user input into a Command.
+     * 
+     * @param input the user input string
+     * @return the corresponding Command object
+     */
     public Command parse(String input) {
         input = input.trim();
 
+        // single-word commands
         if (input.equals("bye") || input.equals("kthxbye")) {
             return new ExitCommand();
         }
@@ -19,9 +26,13 @@ public class Parser {
             return new ListCommand();
         }
  
+        // commands with arguments
         String[] parts = input.split(" ");
         String command = parts[0];
         switch (command) {
+            case "todo", "deadline", "event" -> {
+                return new AddCommand(parts);
+            }
             case "mark" -> {
                 return new MarkCommand(parts);
             }
