@@ -14,13 +14,14 @@ public class Pookie {
 
         while (true) {
             String userInput = sc.nextLine();
-            String response = parser.parse(userInput);
+            Command command = parser.parse(userInput);
+            String response = command.execute();
 
             System.out.println(LINE);
             System.out.println(response);
             System.out.println(LINE + "\n");
 
-            if (userInput.equals("bye")) {
+            if (command.isExit()) {
                 break;
             }
         }

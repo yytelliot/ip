@@ -2,19 +2,24 @@
 
 public class Parser {
 
-    public String parse(String input) {
-        String message = "";
-        switch (input) {
-            case "bye" -> {
-                message = "See you again soon! UwU";
+    public Command parse(String input) {
+        input = input.trim();
+
+        if (input.equals("bye") || input.equals("kthxbye")) {
+            return new ExitCommand();
+        }
+        if (input.equals("list")) {
+            return new ListCommand();
+        }
+ 
+        String[] parts = input.split(" ");
+        String command = parts[0];
+        switch (command) {
+            default -> {
+                return new AddCommand(parts);
             }
-            case "" -> {
-                message = "Didn't catch that, please say again?";
-            }
-            default -> message = input;
         }
 
-        return message;
     }
 
 }
