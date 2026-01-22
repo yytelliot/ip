@@ -1,0 +1,11 @@
+todo go toilet
+deadline clean toilet /by before guests come
+event guests come /from dusk /to dawn
+baby im right here weeeuuueeeueueueeue
+list
+mark 1
+mark 2
+list
+unmark 2
+list
+bye

@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+==============================
+Hello! I'm Pookie :3
+What can I do for you? OwO
+==============================
+
+==============================
+Added task: go toilet ^w^
+==============================
+
+==============================
+Added task: clean toilet /by before guests come ^w^
+==============================
+
+==============================
+Added task: guests come /from dusk /to dawn ^w^
+==============================
+
+==============================
+I don't know the task: baby. Please use 'todo', 'deadline', or 'event'. ;w;
+==============================
+
+==============================
+Here are the tasks in your list :3
+1. [T][ ] go toilet
+2. [D][ ] clean toilet (by: before guests come)
+3. [E][ ] guests come (from: dusk to: dawn)
+==============================
+
+==============================
+Nice! I've marked this task as done x3
+  [T][X] go toilet
+==============================
+
+==============================
+Nice! I've marked this task as done x3
+  [D][X] clean toilet (by: before guests come)
+==============================
+
+==============================
+Here are the tasks in your list :3
+1. [T][X] go toilet
+2. [D][X] clean toilet (by: before guests come)
+3. [E][ ] guests come (from: dusk to: dawn)
+==============================
+
+==============================
+OK, I've marked this task as not done yet ;w;
+  [D][ ] clean toilet (by: before guests come)
+==============================
+
+==============================
+Here are the tasks in your list :3
+1. [T][X] go toilet
+2. [D][ ] clean toilet (by: before guests come)
+3. [E][ ] guests come (from: dusk to: dawn)
+==============================
+
+==============================
+See you! TwT
+==============================
 
