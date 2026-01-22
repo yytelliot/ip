@@ -33,10 +33,19 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public static Task getTask(int index) {
-        if (index < 0 || index >= getTaskCount()) {
-            throw new IndexOutOfBoundsException("That's not a valid index dummy! -w-");
-        }
         return tasks.get(index);
+    }
+
+    /**
+     * Deletes the task at the given index
+     * 
+     * @param index Index of the task to delete
+     * @throws IndexOutOfBoundsException if the index is out of bounds
+     */
+    public static Task deleteTask(int index) {
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        return task;
     }
     
 }
