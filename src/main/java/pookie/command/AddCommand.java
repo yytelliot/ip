@@ -1,6 +1,7 @@
 package pookie.command;
 
 import java.util.Arrays;
+import pookie.exception.PookieException;
 import pookie.task.DeadlineTask;
 import pookie.task.EventTask;
 import pookie.task.Task;
@@ -31,10 +32,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute() {
+    public String execute() throws PookieException {
 
         if (args.length < 2) {
-            return "Please provide a task to add! >w<";
+            throw new PookieException("Please provide a task to add! >w<");
         }
 
         String taskType = args[0];
@@ -45,21 +46,21 @@ public class AddCommand extends Command {
             case "todo" -> {
                 String description = join(args, 1, args.length);
                 if (description.isEmpty()) {
-                    return "The description of a todo cannot be empty! >w<";
+                    throw new PookieException("The description of a todo cannot be empty! >w<");
                 }
                 task = new TodoTask(description);
             }
             case "deadline" -> {
                 int byIdx = findToken(args, 1, "/by");
                 if (byIdx == -1) {
-                    return "Please provide a description and deadline using '/by'! >w<";
+                    throw new PookieException("Please provide a description and deadline using '/by'! >w<");
                 }
 
                 String taskDescription = join(args, 1, byIdx);
                 String byTime = join(args, byIdx + 1, args.length);
 
                 if (taskDescription.isEmpty() || byTime.isEmpty()) {
-                    return "The description or deadline of the deadline cannot be empty! >w<";
+                    throw new PookieException("The description or deadline of the deadline cannot be empty! >w<");
                 }
 
                 task = new DeadlineTask(taskDescription, byTime);
@@ -69,7 +70,7 @@ public class AddCommand extends Command {
                 int toIdx = findToken(args, 1, "/to");
 
                 if (fromIdx == -1 || toIdx == -1 || fromIdx >= toIdx) {
-                    return "Please provide event description and time using '/from' and '/to'! >w<";
+                    throw new PookieException("Please provide event description and time using '/from' and '/to'! >w<");
                 }
 
                 String eventDescription = join(args, 1, fromIdx);
@@ -77,13 +78,13 @@ public class AddCommand extends Command {
                 String toTime = join(args, toIdx + 1, args.length);
 
                 if (eventDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                    return "The description, from time, and to time of the event cannot be empty! >w<";
+                    throw new PookieException("The description, from time, and to time of the event cannot be empty! >w<");
                 }
 
                 task = new EventTask(eventDescription, fromTime, toTime);
             }
             default -> {
-                return "I don't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;";
+                throw new PookieException("I don't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;");
             }
         }
 
@@ -95,6 +96,10 @@ public class AddCommand extends Command {
         }
         
         // print message
-        return "Added task: " + task.getDescription() + " ^w^";
+        return """
+            I have added your task! ^w^
+              %s
+            Now you have %d tasks in the list! UwU
+            """.formatted(task, TaskList.getTaskCount());
     }
 }
