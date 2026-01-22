@@ -65,6 +65,28 @@ Here are the tasks in your list :3
 ==============================
 
 ==============================
+Owo? That task index doesn't exist! >w<!
+==============================
+
+==============================
+Here are the tasks in your list :3
+1. [T][X] go toilet
+2. [D][ ] clean toilet (by: before guests come)
+3. [E][ ] guests come (from: dusk to: dawn)
+==============================
+
+==============================
+I've deleted this task! >:3
+  [E][ ] guests come (from: dusk to: dawn)
+==============================
+
+==============================
+Here are the tasks in your list :3
+1. [T][X] go toilet
+2. [D][ ] clean toilet (by: before guests come)
+==============================
+
+==============================
 See you! TwT
 ==============================
 

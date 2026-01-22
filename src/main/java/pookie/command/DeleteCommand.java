@@ -1,9 +1,12 @@
 package pookie.command;
 
+import pookie.exception.PookieException;
 import pookie.task.Task;
 import pookie.task.TaskList;
-import pookie.exception.PookieException;
 
+/**
+ * Command to delete a task.
+ */
 public class DeleteCommand extends Command {
 
     private final String[] args;

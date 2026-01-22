@@ -2,6 +2,7 @@ package pookie;
 
 import pookie.command.AddCommand;
 import pookie.command.Command;
+import pookie.command.DeleteCommand;
 import pookie.command.ExitCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
@@ -39,11 +40,13 @@ public class Parser {
             case "unmark" -> {
                 return new UnmarkCommand(parts);
             }
+            case "delete" -> {
+                return new DeleteCommand(parts);
+            }
             default -> {
                 return new AddCommand(parts);
             }
         }
 
     }
-
 }
