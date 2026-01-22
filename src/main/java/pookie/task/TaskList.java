@@ -1,12 +1,14 @@
 package pookie.task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Stores and manages the list of tasks.
  */
 public class TaskList {
 
-    private static final Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static final List<Task> tasks= new ArrayList<>();
 
     /**
      * Adds a task to the task list
@@ -15,17 +17,11 @@ public class TaskList {
      * @throws IllegalStateException if the task list is full
      */
     public static void addTask(Task task) {
-
-        if (taskCount >= tasks.length) {
-            throw new IllegalStateException("UwU! Task list is full! Cannot add more tasks.");
-        }
-
-        tasks[taskCount] = task;
-        taskCount++;
+        tasks.add(task);
     }
 
     public static int getTaskCount() {
-        return taskCount;
+        return tasks.size();
     }
 
 
@@ -37,10 +33,10 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
     public static Task getTask(int index) {
-        if (index < 0 || index >= taskCount) {
+        if (index < 0 || index >= getTaskCount()) {
             throw new IndexOutOfBoundsException("That's not a valid index dummy! -w-");
         }
-        return tasks[index];
+        return tasks.get(index);
     }
     
 }

@@ -10,6 +10,10 @@ import pookie.task.TodoTask;
 
 /**
  * Command to add a new task to the task list.
+ * Supported task types:
+ * - todo <description>
+ * - deadline <description> /by <time>
+ * - event <description> /from <start time> /to <end time>
  */
 public class AddCommand extends Command {
 

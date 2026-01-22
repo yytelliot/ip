@@ -4,15 +4,24 @@ What can I do for you? OwO
 ==============================
 
 ==============================
-Added task: go toilet ^w^
+I have added your task! ^w^
+  [T][ ] go toilet
+Now you have 1 tasks in the list! UwU
+
 ==============================
 
 ==============================
-Added task: clean toilet ^w^
+I have added your task! ^w^
+  [D][ ] clean toilet (by: before guests come)
+Now you have 2 tasks in the list! UwU
+
 ==============================
 
 ==============================
-Added task: guests come ^w^
+I have added your task! ^w^
+  [E][ ] guests come (from: dusk to: dawn)
+Now you have 3 tasks in the list! UwU
+
 ==============================
 
 ==============================
