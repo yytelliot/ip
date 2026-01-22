@@ -1,7 +1,8 @@
 package pookie.command;
 
+import pookie.exception.PookieException;
 import pookie.task.Task;
-import pookie.task.TaskList;    
+import pookie.task.TaskList;
 
 /**
  * Command to unmark a task as not done.
@@ -14,10 +15,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute() {
+    public String execute() throws PookieException {
 
+        // check if index is provided
         if (args.length < 2) {
-            return "Please provide the index of the task to unmark! >w<";
+            throw new PookieException("Please provide the index of the task to unmark! >w<");
         }
 
         Task task;
@@ -25,7 +27,7 @@ public class UnmarkCommand extends Command {
             int index = Integer.parseInt(args[1]) - 1;
             task = TaskList.getTask(index);
         } catch (NumberFormatException e) {
-            return "Owo? The index provided is not a number! >w<";
+            throw new PookieException("Owo? The index provided is not a number! >w<!");
         } catch (IndexOutOfBoundsException e) {
             return e.getMessage();
         }
