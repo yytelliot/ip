@@ -20,6 +20,8 @@ public class Pookie {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
 
+        ensureDataFileExists();
+
         System.out.println(LINE);
         System.out.println("Hello! I'm Pookie :3");
         System.out.println("What can I do for you? OwO"); 
@@ -63,7 +65,7 @@ public class Pookie {
         }
     }
 
-    public static void ensureDataFolderExists() {
+    public static void ensureDataFileExists() {
         try {
             if (Files.notExists(DATA_FILE)) {
                 Files.createFile(DATA_FILE);

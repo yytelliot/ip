@@ -23,6 +23,14 @@ public class AddCommand extends Command {
         this.args = args;
     }
 
+    /**
+     * Find the index of a token in an array starting from a given index.
+     * 
+     * @param arr the array to search
+     * @param start the starting index
+     * @param token the token to find
+     * @return the index of the token, or -1 if not found
+     */
     private static int findToken(String[] arr, int start, String token) {
         for (int i = start; i < arr.length; i++) {
             if (arr[i].equals(token)) return i;
@@ -30,6 +38,14 @@ public class AddCommand extends Command {
         return -1;
     }
 
+    /**
+     * Joins a subarray of strings into a single string with spaces.
+     * 
+     * @param arr the array of strings
+     * @param start the starting index (inclusive)
+     * @param endExclusive the ending index (exclusive)
+     * @return the joined string
+     */
     private static String join(String[] arr, int start, int endExclusive) {
         if (start >= endExclusive) return "";
         return String.join(" ", Arrays.copyOfRange(arr, start, endExclusive)).trim();

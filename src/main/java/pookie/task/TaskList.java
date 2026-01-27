@@ -20,6 +20,11 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Returns the number of tasks in the task list
+     * 
+     * @return Number of tasks
+     */
     public static int getTaskCount() {
         return tasks.size();
     }
@@ -46,6 +51,13 @@ public class TaskList {
         Task task = tasks.get(index);
         tasks.remove(index);
         return task;
+    }
+
+    /**
+     * Clears all tasks from the task list
+     */
+    public static void clearTasks() {
+        tasks.clear();
     }
     
 }

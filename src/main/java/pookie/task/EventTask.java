@@ -13,6 +13,14 @@ public class EventTask extends Task {
         this.to = to;
     }
 
+    public String getFromTime() {
+        return from;
+    }
+    
+    public String getToTime() {
+        return to;
+    }
+
     @Override
     public String getTypeIcon() {
         return "[E]";
