@@ -1,5 +1,6 @@
 package pookie.command;
 
+import java.io.IOException;
 import pookie.exception.PookieException;
 import pookie.task.Task;
 import pookie.task.TaskList;
@@ -31,9 +32,12 @@ public class DeleteCommand extends Command {
 
         try {
             Task removed = TaskList.deleteTask(index); // make this return Task
+            storage.saveTaskList();
             return "I've deleted this task! >:3\n  " + removed;
         } catch (IndexOutOfBoundsException e) {
             throw new PookieException("Owo? That task index doesn't exist! >w<!");
+        } catch (IOException e) {
+            throw new PookieException("UwU! There was an error saving the task list: " + e.getMessage());
         }
     }
     

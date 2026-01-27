@@ -10,8 +10,8 @@ public class TodoTask extends Task {
     }
 
     @Override
-    public String getTypeIcon() {
-        return "[T]";
+    public String getType() {
+        return "T";
     }
 
 }

@@ -1,11 +1,23 @@
 package pookie.command;
 
 import pookie.exception.PookieException;
+import pookie.storage.Storage;
 
 /**
  * Abstract class representing a command.
  */
 public abstract class Command {
+
+    protected static Storage storage;
+
+    /**
+     * Sets the storage instance for all commands.
+     * 
+     * @param storageInstance the storage instance to set
+     */
+    public static void setStorage(Storage storageInstance) {
+        storage = storageInstance;
+    }
 
     /**
      * Executes the command.

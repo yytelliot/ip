@@ -1,5 +1,6 @@
 package pookie.command;
 
+import java.io.IOException;
 import pookie.exception.PookieException;
 import pookie.task.Task;
 import pookie.task.TaskList;
@@ -33,6 +34,12 @@ public class MarkCommand extends Command {
             return e.getMessage();
         }
         task.markAsDone();
+
+        try {
+            storage.saveTaskList();
+        } catch (IOException e) {
+        }
+
         return "Nice! I've marked this task as done x3\n  " + task.toString();
     }
 }

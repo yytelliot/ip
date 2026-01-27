@@ -11,9 +11,13 @@ public class DeadlineTask extends Task {
         this.time = time;
     }
 
+    public String getByTime() {
+        return time;
+    }
+
     @Override
-    public String getTypeIcon() {
-        return "[D]";
+    public String getType() {
+        return "D";
     }
 
     @Override

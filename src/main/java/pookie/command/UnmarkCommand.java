@@ -1,5 +1,6 @@
 package pookie.command;
 
+import java.io.IOException;
 import pookie.exception.PookieException;
 import pookie.task.Task;
 import pookie.task.TaskList;
@@ -32,6 +33,10 @@ public class UnmarkCommand extends Command {
             return e.getMessage();
         }
         task.markAsUndone();
+        try {
+            storage.saveTaskList();
+        } catch (IOException e) {
+        }
         return "OK, I've marked this task as not done yet ;w;\n  " + task.toString();
     }
 }
