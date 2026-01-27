@@ -82,16 +82,18 @@ public class Storage {
      * @throws IOException
      */
     public void saveTaskList() throws IOException {
+        ensureFileExists();
+
         StringBuilder sb = new StringBuilder();
         int taskCount = TaskList.getTaskCount();
 
         for (int i = 0; i < taskCount; i++) {
             Task task = TaskList.getTask(i);
-            String typeIcon = task.getTypeIcon();
-            String statusIcon = task.getStatusIcon().equals("[X]") ? "1" : "0";
+            String type = task.getType();
+            String statusIcon = task.getStatus() ? "1" : "0";
             String description = task.getDescription();
 
-            sb.append(typeIcon).append(" | ").append(statusIcon).append(" | ").append(description);
+            sb.append(type).append(" | ").append(statusIcon).append(" | ").append(description);
 
             if (task instanceof DeadlineTask deadlineTask) {
                 String byTime = deadlineTask.getByTime();
@@ -102,7 +104,7 @@ public class Storage {
                 sb.append(" | ").append(fromTime).append(" | ").append(toTime);
             }
 
-            sb.append(System.lineSeparator());
+            sb.append("\n");
         }
 
         Files.writeString(filePath, sb.toString());

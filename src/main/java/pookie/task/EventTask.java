@@ -22,8 +22,8 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String getTypeIcon() {
-        return "[E]";
+    public String getType() {
+        return "E";
     }
 
     @Override

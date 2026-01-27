@@ -12,11 +12,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
+    public boolean  getStatus() {
+        return isDone;
     }
 
-    public abstract String getTypeIcon();
+    public abstract String getType();
 
     public void markAsDone() {
         this.isDone = true;
@@ -32,6 +32,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return getTypeIcon() + getStatusIcon() + " " + description;
+        String statusIcon = getStatus() ? "[X]" : "[ ]";
+        return "[" + getType() + "]" + statusIcon + " " + description;
     }
 }
