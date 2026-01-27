@@ -1,5 +1,6 @@
 package pookie.command;
 
+import java.io.IOException;
 import java.util.Arrays;
 import pookie.exception.PookieException;
 import pookie.task.DeadlineTask;
@@ -111,8 +112,9 @@ public class AddCommand extends Command {
         // add task to task list
         try {
             TaskList.addTask(task);
-        } catch (IllegalStateException e) {
-            return e.getMessage();
+            storage.saveTaskList();
+        } catch (IllegalStateException | IOException e) {
+            throw new PookieException(e.getMessage());
         }
         
         // print message

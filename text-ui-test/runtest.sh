@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# remove old data file
+rm -f pookie_data.txt
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then

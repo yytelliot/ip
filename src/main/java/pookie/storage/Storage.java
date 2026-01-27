@@ -46,7 +46,10 @@ public class Storage {
                 continue;
             }
 
-            String[] parts = line.split("\\\\s*\\\\|\\\\s*");
+            String[] parts = line.split("\\|");
+            for (int i = 0; i < parts.length; i++) {
+                parts[i] = parts[i].trim();
+            }
 
             String type = parts[0];
             boolean isDone = parts[1].equals("1");
@@ -72,7 +75,11 @@ public class Storage {
             if (isDone) {
                 task.markAsDone();
             }
+
+            TaskList.addTask(task);
         }
+
+        sc.close();
 
     }
 
