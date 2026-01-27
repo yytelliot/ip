@@ -1,5 +1,9 @@
 package pookie;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import pookie.command.Command;
 import pookie.exception.PookieException;
@@ -8,6 +12,7 @@ import pookie.exception.PookieException;
  * Main class for the Pookie X3 application.
  */
 public class Pookie {
+    private static final Path DATA_FILE = Paths.get("pookie_data.txt");
     private static final String LINE = "==============================";
 
     public static void main(String[] args) {
@@ -55,6 +60,18 @@ public class Pookie {
             
         } finally {
             sc.close();
+        }
+    }
+
+    public static void ensureDataFolderExists() {
+        try {
+            if (Files.notExists(DATA_FILE)) {
+                Files.createFile(DATA_FILE);
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating data file: " + DATA_FILE);
+            System.out.println("" + e.getMessage());
+            System.exit(1);
         }
     }
 }
