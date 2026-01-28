@@ -1,18 +1,22 @@
 package pookie.task;
 
+import java.time.LocalDate;
+import pookie.format.Formats;
+
 /**
  * Represents a Deadline task.
  */
 public class DeadlineTask extends Task {
-    private final String time;
+    private final LocalDate byDate;
 
-    public DeadlineTask(String description, String time) {
+    public DeadlineTask(String description, LocalDate byDate) {
         super(description);
-        this.time = time;
+
+        this.byDate = byDate;
     }
 
-    public String getByTime() {
-        return time;
+    public LocalDate getByTime() {
+        return this.byDate;
     }
 
     @Override
@@ -22,6 +26,6 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + time + ")";
+        return super.toString() + " (by: " + byDate.format(Formats.DISPLAY_DATE) + ")";
     }
 }
