@@ -12,14 +12,18 @@ Now you have 1 tasks in the list! UwU
 
 ==============================
 I have added your task! ^w^
-  [D][ ] clean toilet (by: before guests come)
+  [D][ ] clean toilet (by: Sep 8 2024)
 Now you have 2 tasks in the list! UwU
 
 ==============================
 
 ==============================
+>w<! I don't know this format: "dusk". Please use something like: Jan 28 2026 or 2026-01-28 ^w^
+==============================
+
+==============================
 I have added your task! ^w^
-  [E][ ] guests come (from: dusk to: dawn)
+  [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 Now you have 3 tasks in the list! UwU
 
 ==============================
@@ -31,8 +35,8 @@ I don't know the task: baby. Please use 'todo', 'deadline', or 'event'. ;w;
 ==============================
 Here are the tasks in your list :3
 1. [T][ ] go toilet
-2. [D][ ] clean toilet (by: before guests come)
-3. [E][ ] guests come (from: dusk to: dawn)
+2. [D][ ] clean toilet (by: Sep 8 2024)
+3. [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
@@ -42,26 +46,26 @@ Nice! I've marked this task as done x3
 
 ==============================
 Nice! I've marked this task as done x3
-  [D][X] clean toilet (by: before guests come)
+  [D][X] clean toilet (by: Sep 8 2024)
 ==============================
 
 ==============================
 Here are the tasks in your list :3
 1. [T][X] go toilet
-2. [D][X] clean toilet (by: before guests come)
-3. [E][ ] guests come (from: dusk to: dawn)
+2. [D][X] clean toilet (by: Sep 8 2024)
+3. [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
 OK, I've marked this task as not done yet ;w;
-  [D][ ] clean toilet (by: before guests come)
+  [D][ ] clean toilet (by: Sep 8 2024)
 ==============================
 
 ==============================
 Here are the tasks in your list :3
 1. [T][X] go toilet
-2. [D][ ] clean toilet (by: before guests come)
-3. [E][ ] guests come (from: dusk to: dawn)
+2. [D][ ] clean toilet (by: Sep 8 2024)
+3. [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
@@ -71,19 +75,19 @@ Owo? That task index doesn't exist! >w<!
 ==============================
 Here are the tasks in your list :3
 1. [T][X] go toilet
-2. [D][ ] clean toilet (by: before guests come)
-3. [E][ ] guests come (from: dusk to: dawn)
+2. [D][ ] clean toilet (by: Sep 8 2024)
+3. [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
 I've deleted this task! >:3
-  [E][ ] guests come (from: dusk to: dawn)
+  [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
 Here are the tasks in your list :3
 1. [T][X] go toilet
-2. [D][ ] clean toilet (by: before guests come)
+2. [D][ ] clean toilet (by: Sep 8 2024)
 ==============================
 
 ==============================

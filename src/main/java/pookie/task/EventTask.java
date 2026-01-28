@@ -1,23 +1,25 @@
 package pookie.task;
 
+import java.time.LocalDate;
+import pookie.format.Formats;
 /**
  * Represents an Event task.
  */
 public class EventTask extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDate from;
+    private final LocalDate to;
 
-    public EventTask(String description, String from, String to) {
+    public EventTask(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public String getFromTime() {
+    public LocalDate getFromTime() {
         return from;
     }
     
-    public String getToTime() {
+    public LocalDate getToTime() {
         return to;
     }
 
@@ -28,7 +30,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")";
+        return super.toString() + " (from: " + from.format(Formats.DISPLAY_DATE) + " to: " + to.format(Formats.DISPLAY_DATE) + ")";
     }
 
 
