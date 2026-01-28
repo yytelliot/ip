@@ -1,6 +1,7 @@
 todo go toilet
-deadline clean toilet /by before guests come
+deadline clean toilet /by 08/09/2024
 event guests come /from dusk /to dawn
+event guests come /from Mar 9 2025 /to Mar 10 2025
 baby im right here weeeuuueeeueueueeue
 list
 mark 1
