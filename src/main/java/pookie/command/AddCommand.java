@@ -67,6 +67,7 @@ public class AddCommand extends Command {
         Task task;
 
         switch (taskType) {
+
             case "todo" -> {
                 String description = join(args, 1, args.length);
                 if (description.isEmpty()) {
@@ -74,6 +75,7 @@ public class AddCommand extends Command {
                 }
                 task = new TodoTask(description);
             }
+
             case "deadline" -> {
                 int byIdx = findToken(args, 1, "/by");
                 if (byIdx == -1) {
@@ -94,6 +96,7 @@ public class AddCommand extends Command {
                 }
                 task = new DeadlineTask(taskDescription, byDate);
             }
+
             case "event" -> {
                 int fromIdx = findToken(args, 1, "/from");
                 int toIdx = findToken(args, 1, "/to");
@@ -125,6 +128,7 @@ public class AddCommand extends Command {
 
                 task = new EventTask(eventDescription, fromDate, toDate);
             }
+
             default -> {
                 throw new PookieException("I don't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;");
             }

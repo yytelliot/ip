@@ -11,6 +11,8 @@ public class Formats {
         DateTimeFormatter.ofPattern("d-M-yyyy"),
         DateTimeFormatter.ofPattern("d.M.yyyy"),
         DateTimeFormatter.ofPattern("d MMM yyyy"),
+        DateTimeFormatter.ofPattern("d MMMM yyyy"),
+        DateTimeFormatter.ofPattern("MMM d yyyy"),
         DateTimeFormatter.ISO_LOCAL_DATE
     );
 }
