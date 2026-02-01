@@ -1,4 +1,4 @@
-package pookie;
+package pookie.ui;
 
 import pookie.command.AddCommand;
 import pookie.command.Command;

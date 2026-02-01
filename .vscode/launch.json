@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Pookie (no debug)",
+      "request": "launch",
+      "mainClass": "pookie.Pookie",
+      "preLaunchTask": "build",
+      "classPaths": [
+        "${workspaceFolder}/bin"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
