@@ -2,6 +2,7 @@ package pookie.command;
 
 import java.io.IOException;
 import pookie.exception.PookieException;
+import pookie.storage.Storage;
 import pookie.task.Task;
 import pookie.task.TaskList;
 
@@ -16,7 +17,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute() throws PookieException {
+    public String execute(TaskList taskList, Storage storage) throws PookieException {
 
         // check if index is provided
         if (args.length < 2) {
@@ -26,7 +27,7 @@ public class UnmarkCommand extends Command {
         Task task;
         try {
             int index = Integer.parseInt(args[1]) - 1;
-            task = TaskList.getTask(index);
+            task = taskList.getTask(index);
         } catch (NumberFormatException e) {
             throw new PookieException("Owo? The index provided is not a number! >w<!");
         } catch (IndexOutOfBoundsException e) {
@@ -34,7 +35,7 @@ public class UnmarkCommand extends Command {
         }
         task.markAsUndone();
         try {
-            storage.saveTaskList();
+            storage.saveTaskList(taskList);
         } catch (IOException e) {
         }
         return "OK, I've marked this task as not done yet ;w;\n  " + task.toString();

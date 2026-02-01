@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import pookie.exception.PookieException;
 import pookie.format.Formats;
+import pookie.storage.Storage;
 import pookie.task.DeadlineTask;
 import pookie.task.EventTask;
 import pookie.task.Task;
@@ -23,6 +24,12 @@ public class AddCommand extends Command {
 
     private final String[] args;
 
+    /**
+     * Constructs an AddCommand with the given arguments.
+     * 
+     * @param args the command arguments
+     * @param taskList the task list to add the task to
+     */
     public AddCommand(String[] args) {
         this.args = args;
     }
@@ -56,7 +63,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute() throws PookieException {
+    public String execute(TaskList taskList, Storage storage) throws PookieException {
 
         if (args.length < 2) {
             throw new PookieException("Please provide a task to add! >w<");
@@ -136,8 +143,8 @@ public class AddCommand extends Command {
 
         // add task to task list
         try {
-            TaskList.addTask(task);
-            storage.saveTaskList();
+            taskList.addTask(task);
+            storage.saveTaskList(taskList);
         } catch (IllegalStateException | IOException e) {
             throw new PookieException(e.getMessage());
         }
@@ -147,7 +154,7 @@ public class AddCommand extends Command {
             I have added your task! ^w^
               %s
             Now you have %d tasks in the list! UwU
-            """.formatted(task, TaskList.getTaskCount());
+            """.formatted(task, taskList.getTaskCount());
     }
 
     private LocalDate parseInputDate(String dateStr) {

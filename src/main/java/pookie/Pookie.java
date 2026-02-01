@@ -6,6 +6,7 @@ import java.util.Scanner;
 import pookie.command.Command;
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
+import pookie.task.TaskList;
 import pookie.ui.Parser;
 import pookie.ui.Ui;
 
@@ -18,11 +19,13 @@ public class Pookie {
     private final Storage storage;
     private final Parser parser;
     private final Ui ui;
+    private final TaskList taskList;
 
     public Pookie(String filePath) {
         this.storage = new Storage(Paths.get(filePath));
         this.parser = new Parser();
         this.ui = new Ui();
+        this.taskList = new TaskList();
 
     }
 
@@ -30,18 +33,15 @@ public class Pookie {
     public void run() {
         // Implementation of run method if needed
         Scanner sc = new Scanner(System.in);
-        Command.setStorage(storage);
 
         try {
-            storage.loadIntoTaskList();
+            storage.loadIntoTaskList(taskList);
         } catch (IOException e) {
-            System.out.println("Error loading data file: " + e.getMessage());
+            ui.showError("UwU! There was an error loading the task list: " + e.getMessage());
         }
 
-        System.out.println(LINE);
-        System.out.println("Hello! I'm Pookie :3");
-        System.out.println("What can I do for you? OwO"); 
-        System.out.println(LINE + "\n");
+        ui.showWelcomeMessage();
+
         try {
 
             // Main loop
@@ -56,12 +56,10 @@ public class Pookie {
                 try {
                     
                     // try to execute the command
-                    String response = command.execute();
+                    String response = command.execute(taskList, storage);
 
                     // print response
-                    System.out.println(LINE);
-                    System.out.println(response);
-                    System.out.println(LINE + "\n");
+                    ui.showResponse(response);
 
                     // exit if command is exit command
                     if (command.isExit()) {
@@ -70,12 +68,10 @@ public class Pookie {
 
                 } catch (PookieException e) {
                     // print error message
-                    System.out.println(LINE);
-                    System.out.println(e.getMessage());
-                    System.out.println(LINE + "\n");
+                    ui.showError(e.getMessage());
                 }
             } 
-            
+
         } finally {
             sc.close();
         }

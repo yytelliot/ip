@@ -27,11 +27,17 @@ public class Ui {
     }
 
     public void showResponse(String response) {
+        showLine();
         System.out.println(response);
+        showLine();
+        showEmptyLine();
     }   
 
     public void showError(String errorMessage) {
-        System.out.println("OwO! " + errorMessage);
+        showLine();
+        System.out.println(errorMessage);
+        showLine();
+        showEmptyLine();
     }
 
     

@@ -2,6 +2,7 @@ package pookie.command;
 
 import java.io.IOException;
 import pookie.exception.PookieException;
+import pookie.storage.Storage;
 import pookie.task.Task;
 import pookie.task.TaskList;
 
@@ -17,7 +18,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute() throws PookieException {
+    public String execute(TaskList taskList, Storage storage) throws PookieException {
 
         if (args.length < 2) {
             throw new PookieException(">w<! Please provide the index of the task to delete!");
@@ -31,8 +32,8 @@ public class DeleteCommand extends Command {
         }
 
         try {
-            Task removed = TaskList.deleteTask(index); // make this return Task
-            storage.saveTaskList();
+            Task removed = taskList.deleteTask(index); // make this return Task
+            storage.saveTaskList(taskList);
             return "I've deleted this task! >:3\n  " + removed;
         } catch (IndexOutOfBoundsException e) {
             throw new PookieException("Owo? That task index doesn't exist! >w<!");

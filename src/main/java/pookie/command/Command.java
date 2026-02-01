@@ -2,29 +2,20 @@ package pookie.command;
 
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
+import pookie.task.TaskList;
 
 /**
  * Abstract class representing a command.
  */
 public abstract class Command {
-
-    protected static Storage storage;
-
     /**
-     * Sets the storage instance for all commands.
+     * Executes the command with the given task list and storage.
      * 
-     * @param storageInstance the storage instance to set
-     */
-    public static void setStorage(Storage storageInstance) {
-        storage = storageInstance;
-    }
-
-    /**
-     * Executes the command.
-     * 
+     * @param taskList the task list to operate on
+     * @param storage the storage to save changes to
      * @return the message to print after execution
      */
-    public abstract String execute() throws PookieException;
+    public abstract String execute(TaskList taskList, Storage storage) throws PookieException;
 
     /**
      * Indicates whether this command should close the application.

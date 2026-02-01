@@ -38,9 +38,9 @@ public class Storage {
      * 
      * @throws IOException
      */
-    public void loadIntoTaskList() throws IOException {
+    public void loadIntoTaskList(TaskList taskList) throws IOException {
         ensureFileExists();
-        TaskList.clearTasks();
+        taskList.clearTasks();
         Scanner sc = new Scanner(filePath);
 
         while (sc.hasNextLine()) {
@@ -116,7 +116,7 @@ public class Storage {
                 task.markAsDone();
             }
 
-            TaskList.addTask(task);
+            taskList.addTask(task);
         }
 
         sc.close();
@@ -128,14 +128,14 @@ public class Storage {
      * 
      * @throws IOException
      */
-    public void saveTaskList() throws IOException {
+    public void saveTaskList(TaskList taskList) throws IOException {
         ensureFileExists();
 
         StringBuilder sb = new StringBuilder();
-        int taskCount = TaskList.getTaskCount();
+        int taskCount = taskList.getTaskCount();
 
         for (int i = 0; i < taskCount; i++) {
-            Task task = TaskList.getTask(i);
+            Task task = taskList.getTask(i);
             String type = task.getType();
             String statusIcon = task.getStatus() ? "1" : "0";
             String description = task.getDescription();
