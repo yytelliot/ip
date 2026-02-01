@@ -7,19 +7,23 @@ import pookie.command.Command;
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.ui.Parser;
+import pookie.ui.Ui;
 
 /**
  * Main class for the Pookie X3 application.
  */
 public class Pookie {
-    private static final String LINE = "==============================";
+    
 
     private final Storage storage;
     private final Parser parser;
+    private final Ui ui;
 
     public Pookie(String filePath) {
         this.storage = new Storage(Paths.get(filePath));
         this.parser = new Parser();
+        this.ui = new Ui();
+
     }
 
 
