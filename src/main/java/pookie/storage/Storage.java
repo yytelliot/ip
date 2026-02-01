@@ -41,85 +41,83 @@ public class Storage {
     public void loadIntoTaskList(TaskList taskList) throws IOException {
         ensureFileExists();
         taskList.clearTasks();
-        Scanner sc = new Scanner(filePath);
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            if (line.isBlank()) {
-                continue;
-            }
-
-            String[] parts = line.split("\\|");
-            for (int i = 0; i < parts.length; i++) {
-                parts[i] = parts[i].trim();
-            }
-
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-            Task task;
-
-            switch (type) {
-                case "T" -> task = new TodoTask(description);
-                case "D" -> {
-                    String by = parts[3];
-                    LocalDate byDate = null;
-
-                    for (DateTimeFormatter f : Formats.ACCEPTED_INPUT_FORMATS) {
-                        try {
-                            byDate = LocalDate.parse(by, f);
-                            break;
-                        } catch (Exception e) {
-                            // Try next format
+        try (Scanner sc = new Scanner(filePath)) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (line.isBlank()) {
+                    continue;
+                }
+                
+                String[] parts = line.split("\\|");
+                for (int i = 0; i < parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
+                
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                Task task;
+                
+                switch (type) {
+                    case "T" -> task = new TodoTask(description);
+                    case "D" -> {
+                        String by = parts[3];
+                        LocalDate byDate = null;
+                        
+                        for (DateTimeFormatter f : Formats.ACCEPTED_INPUT_FORMATS) {
+                            try {
+                                byDate = LocalDate.parse(by, f);
+                                break;
+                            } catch (Exception e) {
+                                // Try next format
+                            }
                         }
+                        
+                        if (byDate == null) {
+                            // If no format matched, skip this task
+                        }
+                        
+                        task = new DeadlineTask(description, byDate);
+                        
                     }
-
-                    if (byDate == null) {
-                        // If no format matched, skip this task
+                    case "E" -> {
+                        String from = parts[3];
+                        String to = parts[4];
+                        
+                        LocalDate fromDate = null;
+                        LocalDate toDate = null;
+                        
+                        try {
+                            fromDate = LocalDate.parse(from, Formats.STORAGE_DATE);
+                        } catch (Exception e) {
+                            // do nothingk
+                        }
+                        
+                        try {
+                            toDate = LocalDate.parse(to, Formats.STORAGE_DATE);
+                        } catch (Exception e) {
+                            // do nothing
+                        }
+                        
+                        if (fromDate == null || toDate == null) {
+                            // skip this task
+                        }
+                        
+                        
+                        task = new EventTask(description, fromDate, toDate);
                     }
-
-                    task = new DeadlineTask(description, byDate);
-
+                    default -> {
+                        continue; // Skip unrecognized task types
+                    }
                 }
-                case "E" -> {
-                    String from = parts[3];
-                    String to = parts[4];
-
-                    LocalDate fromDate = null;
-                    LocalDate toDate = null;
-
-                    try {
-                        fromDate = LocalDate.parse(from, Formats.STORAGE_DATE);
-                    } catch (Exception e) {
-                        // do nothingk
-                    }
-
-                    try {
-                        toDate = LocalDate.parse(to, Formats.STORAGE_DATE);
-                    } catch (Exception e) {
-                        // do nothing
-                    }
-
-                    if (fromDate == null || toDate == null) {
-                        // skip this task
-                    }
-
-
-                    task = new EventTask(description, fromDate, toDate);
+                
+                if (isDone) {
+                    task.markAsDone();
                 }
-                default -> {
-                    continue; // Skip unrecognized task types
-                }
-                }
-
-            if (isDone) {
-                task.markAsDone();
+                
+                taskList.addTask(task);
             }
-
-            taskList.addTask(task);
         }
-
-        sc.close();
 
     }
 

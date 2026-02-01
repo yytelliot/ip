@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class TaskList {
 
-    private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Adds a task to the task list
