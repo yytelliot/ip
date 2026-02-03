@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
-        return "See you! TwT";
+        return "Bye bye! TwT";
     }
 
     @Override

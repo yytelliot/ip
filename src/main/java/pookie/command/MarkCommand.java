@@ -41,6 +41,6 @@ public class MarkCommand extends Command {
         } catch (IOException e) {
         }
 
-        return "Nice! I've marked this task as done x3\n  " + task.toString();
+        return "Nice! Pookie will mark this task as done x3\n  " + task.toString();
     }
 }
