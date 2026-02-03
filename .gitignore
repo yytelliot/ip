@@ -16,6 +16,9 @@ bin/
 # Class files
 .class
 
+# Jar files
+.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 pookie_data.txt
