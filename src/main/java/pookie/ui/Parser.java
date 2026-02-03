@@ -28,8 +28,8 @@ public class Parser {
         }
  
         // commands with arguments
-        String[] parts = input.split(" ");
-        String command = parts[0];
+        String[] parts = input.split("\\s+");
+        String command = parts[0].trim();
         switch (command) {
             case "todo", "deadline", "event" -> {
                 return new AddCommand(parts);
