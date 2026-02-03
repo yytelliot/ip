@@ -2,6 +2,9 @@ package pookie.format;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Contains various date formats used in Pookie.
+ */
 public class Formats {
     public static final DateTimeFormatter DISPLAY_DATE = DateTimeFormatter.ofPattern("MMM d yyyy");
     public static final DateTimeFormatter STORAGE_DATE = DateTimeFormatter.ISO_LOCAL_DATE;

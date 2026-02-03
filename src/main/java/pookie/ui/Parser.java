@@ -9,6 +9,9 @@ import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
 
+/**
+ * Parses user input into commands.
+ */
 public class Parser {
 
     /**
