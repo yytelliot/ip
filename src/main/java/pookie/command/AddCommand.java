@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+
 import pookie.exception.PookieException;
 import pookie.format.Formats;
 import pookie.storage.Storage;
@@ -124,12 +125,12 @@ public class AddCommand extends Command {
                 LocalDate toDate = parseInputDate(toTime);
 
                 if (fromDate == null) {
-                    throw new PookieException(">w<! I don't know this format: \"" + fromTime + "\". "
+                    throw new PookieException(">w<! Pookie doesn't know this format: \"" + fromTime + "\". "
                             + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
                 }
 
                 if (toDate == null) {
-                    throw new PookieException(">w<! I don't know this format: \"" + toTime + "\". "
+                    throw new PookieException(">w<! Pookie doesn't don't know this format: \"" + toTime + "\". "
                             + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
                 }
 
@@ -137,7 +138,7 @@ public class AddCommand extends Command {
             }
 
             default -> {
-                throw new PookieException("I don't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;");
+                throw new PookieException("Pookie doesn't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;");
             }
         }
 
@@ -151,7 +152,7 @@ public class AddCommand extends Command {
         
         // print message
         return """
-            I have added your task! ^w^
+            Pookie has added your task! ^w^
               %s
             Now you have %d tasks in the list! UwU
             """.formatted(task, taskList.getTaskCount());

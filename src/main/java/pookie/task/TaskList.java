@@ -42,6 +42,22 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the given keyword in their description
+     * 
+     * @param keyword Keyword to search for
+     * @return List of tasks that match the keyword
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    /**
      * Deletes the task at the given index
      * 
      * @param index Index of the task to delete

@@ -4,6 +4,7 @@ import pookie.command.AddCommand;
 import pookie.command.Command;
 import pookie.command.DeleteCommand;
 import pookie.command.ExitCommand;
+import pookie.command.FindCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
@@ -26,8 +27,13 @@ public class Parser {
         if (input.equals("list")) {
             return new ListCommand();
         }
+
+        // commands with single arguments
+        if (input.startsWith("find ")) {
+            return new FindCommand(input.substring(5).trim());
+        }
  
-        // commands with arguments
+        // commands with multiple arguments
         String[] parts = input.split("\\s+");
         String command = parts[0].trim();
         switch (command) {
