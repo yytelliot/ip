@@ -1,5 +1,8 @@
 package pookie.ui;
 
+/**
+ * Handles the user interface interactions.
+ */
 public class Ui {
 
     private static final String LINE = "==============================";
