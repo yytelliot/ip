@@ -5,7 +5,7 @@ import pookie.task.TaskList;
 /**
  * Command to find all tasks containing a specific keyword.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private final String keyword;
 
@@ -24,5 +24,5 @@ public class FindCommand extends Command{
         }
         return sb.toString().trim();
     }
-    
+
 }

@@ -1,3 +1,16 @@
 {
-  "java.project.outputPath": "bin"
+  "java.project.outputPath": "bin",
+    "java.completion.importOrder": [
+    "#",
+    "java",
+    "javax",
+    "org",
+    "com",
+    ""
+  ],
+  "[java]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  }
 }

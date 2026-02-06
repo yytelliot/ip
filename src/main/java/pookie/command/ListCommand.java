@@ -13,8 +13,8 @@ public class ListCommand extends Command {
         StringBuilder sb = new StringBuilder("Here are the tasks in your list :3\n");
         for (int i = 0; i < taskList.getTaskCount(); i++) {
             sb.append((i + 1)).append(". ")
-            .append(taskList.getTask(i))
-            .append("\n");
+                    .append(taskList.getTask(i))
+                    .append("\n");
         }
         return sb.toString().trim();
     }

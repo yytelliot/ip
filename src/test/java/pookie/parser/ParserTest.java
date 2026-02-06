@@ -17,7 +17,6 @@ public class ParserTest {
     private final Parser parser = new Parser();
 
     // ---------- Single-word commands ----------
-
     @Test
     void parse_bye_returnsExitCommand() {
         Command cmd = parser.parse("bye");
@@ -37,7 +36,6 @@ public class ParserTest {
     }
 
     // ---------- Commands with arguments ----------
-
     @Test
     void parse_todoWithDescription_returnsAddCommand() {
         Command cmd = parser.parse("todo read book");
@@ -75,7 +73,6 @@ public class ParserTest {
     }
 
     // ---------- Current behavior: parser does not validate ----------
-
     @Test
     void parse_unknownCommand_returnsAddCommandByDefault() {
         Command cmd = parser.parse("fly 123");
@@ -107,7 +104,6 @@ public class ParserTest {
     }
 
     // ---------- Whitespace trimming (your parser trims input) ----------
-
     @Test
     void parse_trimsLeadingTrailingSpaces() {
         Command cmd = parser.parse("   list   ");
