@@ -29,13 +29,23 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * Displays the response message to the user.
+     *
+     * @param response The response message to display.
+     */
     public void showResponse(String response) {
         showLine();
         System.out.println(response);
         showLine();
         showEmptyLine();
-    }   
+    }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param errorMessage The error message to display.
+     */
     public void showError(String errorMessage) {
         showLine();
         System.out.println(errorMessage);
@@ -43,5 +53,4 @@ public class Ui {
         showEmptyLine();
     }
 
-    
 }

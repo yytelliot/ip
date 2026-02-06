@@ -3,6 +3,7 @@ package pookie;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
 import pookie.command.Command;
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
@@ -14,13 +15,17 @@ import pookie.ui.Ui;
  * Main class for the Pookie X3 application.
  */
 public class Pookie {
-    
 
     private final Storage storage;
     private final Parser parser;
     private final Ui ui;
     private final TaskList taskList;
 
+    /**
+     * Constructs a Pookie application with the specified storage file path.
+     *
+     * @param filePath The path to the storage file.
+     */
     public Pookie(String filePath) {
         this.storage = new Storage(Paths.get(filePath));
         this.parser = new Parser();
@@ -29,7 +34,9 @@ public class Pookie {
 
     }
 
-
+    /**
+     * Runs the Pookie application.
+     */
     public void run() {
         // Implementation of run method if needed
         Scanner sc = new Scanner(System.in);
@@ -54,7 +61,7 @@ public class Pookie {
                 Command command = parser.parse(userInput);
 
                 try {
-                    
+
                     // try to execute the command
                     String response = command.execute(taskList, storage);
 
@@ -70,13 +77,12 @@ public class Pookie {
                     // print error message
                     ui.showError(e.getMessage());
                 }
-            } 
+            }
 
         } finally {
             sc.close();
         }
-    }   
-   
+    }
 
     public static void main(String[] args) {
 
@@ -84,9 +90,9 @@ public class Pookie {
         if (args.length > 0) {
             filePath = args[0];
         }
-        
+
         new Pookie(filePath).run();
- 
+
     }
 
 }

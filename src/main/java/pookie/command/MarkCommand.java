@@ -1,6 +1,7 @@
 package pookie.command;
 
 import java.io.IOException;
+
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
@@ -10,6 +11,7 @@ import pookie.task.TaskList;
  * Command to mark a task as done.
  */
 public class MarkCommand extends Command {
+
     private final String[] args;
 
     public MarkCommand(String[] args) {
@@ -39,6 +41,7 @@ public class MarkCommand extends Command {
         try {
             storage.saveTaskList(taskList);
         } catch (IOException e) {
+            throw new PookieException("I couldn't save your tasks. Please try again. >w<");
         }
 
         return "Nice! Pookie will mark this task as done x3\n  " + task.toString();

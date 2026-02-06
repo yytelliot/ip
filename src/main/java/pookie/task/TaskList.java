@@ -12,7 +12,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list
-     * 
+     *
      * @param task Task description
      * @throws IllegalStateException if the task list is full
      */
@@ -22,17 +22,16 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the task list
-     * 
+     *
      * @return Number of tasks
      */
     public int getTaskCount() {
         return tasks.size();
     }
 
-
     /**
      * Returns the task at the given index
-     * 
+     *
      * @param index Index of the task to retrieve
      * @return Task at the given index
      * @throws IndexOutOfBoundsException if the index is out of bounds
@@ -43,7 +42,7 @@ public class TaskList {
 
     /**
      * Finds tasks that contain the given keyword in their description
-     * 
+     *
      * @param keyword Keyword to search for
      * @return List of tasks that match the keyword
      */
@@ -59,7 +58,7 @@ public class TaskList {
 
     /**
      * Deletes the task at the given index
-     * 
+     *
      * @param index Index of the task to delete
      * @throws IndexOutOfBoundsException if the index is out of bounds
      */
@@ -75,5 +74,5 @@ public class TaskList {
     public void clearTasks() {
         tasks.clear();
     }
-    
+
 }

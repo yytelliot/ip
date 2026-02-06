@@ -16,7 +16,7 @@ public class Parser {
 
     /**
      * Parses user input into a Command.
-     * 
+     *
      * @param input the user input string
      * @return the corresponding Command object
      */
@@ -35,7 +35,7 @@ public class Parser {
         if (input.startsWith("find ")) {
             return new FindCommand(input.substring(5).trim());
         }
- 
+
         // commands with multiple arguments
         String[] parts = input.split("\\s+");
         String command = parts[0].trim();

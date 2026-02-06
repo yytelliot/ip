@@ -1,6 +1,7 @@
 package pookie.command;
 
 import java.io.IOException;
+
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
@@ -10,6 +11,7 @@ import pookie.task.TaskList;
  * Command to unmark a task as not done.
  */
 public class UnmarkCommand extends Command {
+
     private final String[] args;
 
     public UnmarkCommand(String[] args) {
@@ -31,12 +33,13 @@ public class UnmarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new PookieException("Owo? The index provided is not a number! >w<!");
         } catch (IndexOutOfBoundsException e) {
-            return e.getMessage();
+            throw new PookieException(">w<! That task index is out of range!");
         }
         task.markAsUndone();
         try {
             storage.saveTaskList(taskList);
         } catch (IOException e) {
+            throw new PookieException("I couldn't save your tasks. Please try again. >w<");
         }
         return "OK, I've marked this task as not done yet ;w;\n  " + task.toString();
     }

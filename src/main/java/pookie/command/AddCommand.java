@@ -15,11 +15,10 @@ import pookie.task.TaskList;
 import pookie.task.TodoTask;
 
 /**
- * Command to add a new task to the task list.
- * Supported task types:
- * - todo <description>
- * - deadline <description> /by <time>
- * - event <description> /from <start time> /to <end time>
+ * Command to add a new task to the task list. Supported task types:
+ * - todo {@code <description>}
+ * - deadline {@code <description>}/by {@code <time>}
+ * - event {@code <description>} /from {@code <start time>} /to {@code <end time>}
  */
 public class AddCommand extends Command {
 
@@ -27,7 +26,7 @@ public class AddCommand extends Command {
 
     /**
      * Constructs an AddCommand with the given arguments.
-     * 
+     *
      * @param args the command arguments
      * @param taskList the task list to add the task to
      */
@@ -37,7 +36,7 @@ public class AddCommand extends Command {
 
     /**
      * Find the index of a token in an array starting from a given index.
-     * 
+     *
      * @param arr the array to search
      * @param start the starting index
      * @param token the token to find
@@ -45,21 +44,25 @@ public class AddCommand extends Command {
      */
     private static int findToken(String[] arr, int start, String token) {
         for (int i = start; i < arr.length; i++) {
-            if (arr[i].equals(token)) return i;
+            if (arr[i].equals(token)) {
+                return i;
+            }
         }
         return -1;
     }
 
     /**
      * Joins a subarray of strings into a single string with spaces.
-     * 
+     *
      * @param arr the array of strings
      * @param start the starting index (inclusive)
      * @param endExclusive the ending index (exclusive)
      * @return the joined string
      */
     private static String join(String[] arr, int start, int endExclusive) {
-        if (start >= endExclusive) return "";
+        if (start >= endExclusive) {
+            return "";
+        }
         return String.join(" ", Arrays.copyOfRange(arr, start, endExclusive)).trim();
     }
 
@@ -75,7 +78,6 @@ public class AddCommand extends Command {
         Task task;
 
         switch (taskType) {
-
             case "todo" -> {
                 String description = join(args, 1, args.length);
                 if (description.isEmpty()) {
@@ -118,7 +120,8 @@ public class AddCommand extends Command {
                 String toTime = join(args, toIdx + 1, args.length);
 
                 if (eventDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                    throw new PookieException("The description, from time, and to time of the event cannot be empty! >w<");
+                    throw new PookieException(
+                            "The description, from time, and to time of the event cannot be empty! >w<");
                 }
 
                 LocalDate fromDate = parseInputDate(fromTime);
@@ -138,7 +141,8 @@ public class AddCommand extends Command {
             }
 
             default -> {
-                throw new PookieException("Pookie doesn't know the task: " + taskType + ". Please use 'todo', 'deadline', or 'event'. ;w;");
+                throw new PookieException("Pookie doesn't know the task: " + taskType
+                        + ". Please use 'todo', 'deadline', or 'event'. ;w;");
             }
         }
 
@@ -149,7 +153,7 @@ public class AddCommand extends Command {
         } catch (IllegalStateException | IOException e) {
             throw new PookieException(e.getMessage());
         }
-        
+
         // print message
         return """
             Pookie has added your task! ^w^

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 import pookie.format.Formats;
 import pookie.task.DeadlineTask;
 import pookie.task.EventTask;
@@ -24,6 +25,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Ensures that the storage file exists, creating it if necessary.
+     *
+     * @throws IOException
+     */
     public void ensureFileExists() throws IOException {
         if (filePath.getParent() != null) {
             Files.createDirectories(filePath.getParent());
@@ -35,7 +41,7 @@ public class Storage {
 
     /**
      * Loads tasks from the storage file into the TaskList.
-     * 
+     *
      * @throws IOException
      */
     public void loadIntoTaskList(TaskList taskList) throws IOException {
@@ -47,23 +53,24 @@ public class Storage {
                 if (line.isBlank()) {
                     continue;
                 }
-                
+
                 String[] parts = line.split("\\|");
                 for (int i = 0; i < parts.length; i++) {
                     parts[i] = parts[i].trim();
                 }
-                
+
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
                 Task task;
-                
+
                 switch (type) {
-                    case "T" -> task = new TodoTask(description);
+                    case "T" ->
+                        task = new TodoTask(description);
                     case "D" -> {
                         String by = parts[3];
                         LocalDate byDate = null;
-                        
+
                         for (DateTimeFormatter f : Formats.ACCEPTED_INPUT_FORMATS) {
                             try {
                                 byDate = LocalDate.parse(by, f);
@@ -72,49 +79,48 @@ public class Storage {
                                 // Try next format
                             }
                         }
-                        
+
                         if (byDate == null) {
                             // If no format matched, skip this task
                         }
-                        
+
                         task = new DeadlineTask(description, byDate);
-                        
+
                     }
                     case "E" -> {
                         String from = parts[3];
                         String to = parts[4];
-                        
+
                         LocalDate fromDate = null;
                         LocalDate toDate = null;
-                        
+
                         try {
                             fromDate = LocalDate.parse(from, Formats.STORAGE_DATE);
                         } catch (Exception e) {
                             // do nothingk
                         }
-                        
+
                         try {
                             toDate = LocalDate.parse(to, Formats.STORAGE_DATE);
                         } catch (Exception e) {
                             // do nothing
                         }
-                        
+
                         if (fromDate == null || toDate == null) {
                             // skip this task
                         }
-                        
-                        
+
                         task = new EventTask(description, fromDate, toDate);
                     }
                     default -> {
                         continue; // Skip unrecognized task types
                     }
                 }
-                
+
                 if (isDone) {
                     task.markAsDone();
                 }
-                
+
                 taskList.addTask(task);
             }
         }
@@ -123,7 +129,7 @@ public class Storage {
 
     /**
      * Saves the current TaskList to the storage file.
-     * 
+     *
      * @throws IOException
      */
     public void saveTaskList(TaskList taskList) throws IOException {
