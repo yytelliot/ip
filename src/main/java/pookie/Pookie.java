@@ -34,6 +34,10 @@ public class Pookie {
 
     }
 
+    public String getResponse(String input) {
+        return input;
+    }
+
     /**
      * Runs the Pookie application.
      */
