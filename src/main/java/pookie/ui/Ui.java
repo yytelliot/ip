@@ -11,12 +11,21 @@ public class Ui {
      * Prints the welcome message to the user.
      */
     public void showWelcomeMessage() {
-        showLine();
-        System.out.println("Hello! I'm Pookie :3");
-        System.out.println("What can I do for you? OwO");
-        showLine();
-        showEmptyLine();
+        System.out.println(LINE);
+        System.out.println(getWelcomeMessage());
+        System.out.println(LINE);
+        System.out.println();
     }
+
+    public String getWelcomeMessage() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Hello! I'm Pookie :3").append("\n");
+        sb.append("What can I do for you? OwO").append("\n");
+
+        return sb.toString();
+    }
+
 
     /**
      * Prints a line separator.
