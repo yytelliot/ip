@@ -20,6 +20,7 @@ public class Pookie {
     private final Parser parser;
     private final Ui ui;
     private final TaskList taskList;
+    private boolean isExit = false;
 
     /**
      * Constructs a Pookie application with the specified storage file path.
@@ -32,10 +33,51 @@ public class Pookie {
         this.ui = new Ui();
         this.taskList = new TaskList();
 
+        try {
+            storage.loadIntoTaskList(taskList);
+        } catch (IOException e) {
+            ui.showError("UwU! There was an error loading the task list: " + e.getMessage());
+        }
+
     }
 
-    public String getResponse(String input) {
-        return input;
+    /**
+     * Gets Pookie's response to the user input for JavaFX.
+     *
+     * @param userInput The input from the user.
+     * @return Pookie's response.
+     */
+    public String getResponse(String userInput) {
+
+
+        // parse and execute command
+        Command command = parser.parse(userInput);
+
+        try {
+
+            // try to execute the command
+            String response = command.execute(taskList, storage);
+            if (command.isExit()) {
+                isExit = true;
+            }
+
+            // print response
+            return response;
+
+        } catch (PookieException e) {
+            // print error message
+            return e.getMessage();
+        }
+
+    }
+
+    /**
+     * Returns whether the application should exit.
+     *
+     * @return true if the application should exit, false otherwise.
+     */
+    public boolean isExit() {
+        return isExit;
     }
 
     /**
@@ -45,11 +87,6 @@ public class Pookie {
         // Implementation of run method if needed
         Scanner sc = new Scanner(System.in);
 
-        try {
-            storage.loadIntoTaskList(taskList);
-        } catch (IOException e) {
-            ui.showError("UwU! There was an error loading the task list: " + e.getMessage());
-        }
 
         ui.showWelcomeMessage();
 

@@ -25,11 +25,15 @@ public class MainWindow extends AnchorPane {
     private Pookie pookie;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Pookie.png"));
+    private Image pookieImage = new Image(this.getClass().getResourceAsStream("/images/Pookie.png"));
+    private Ui ui = new Ui();
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getPookieDialog(ui.getWelcomeMessage(), pookieImage)
+        );
     }
 
     /** Injects the Pookie instance */
@@ -38,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Pookie's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -47,8 +51,13 @@ public class MainWindow extends AnchorPane {
         String response = pookie.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getPookieDialog(response, dukeImage)
+                DialogBox.getPookieDialog(response, pookieImage)
         );
         userInput.clear();
+
+        if (pookie.isExit()) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+        }
     }
 }
