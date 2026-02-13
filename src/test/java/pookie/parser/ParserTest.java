@@ -1,4 +1,4 @@
-package pookie.ui;
+package pookie.parser;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,6 +12,7 @@ import pookie.command.ExitCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
+import pookie.ui.Parser;
 
 public class ParserTest {
 
@@ -76,7 +77,10 @@ public class ParserTest {
     // ---------- Current behavior: parser does not validate ----------
     @Test
     void parse_unknownCommand_throwsException() {
-        assertThrows(pookie.exception.PookieException.class, () -> parser.parse("fly 123"));
+        pookie.exception.PookieException ex = assertThrows(
+                pookie.exception.PookieException.class,
+                () -> parser.parse("fly 123"));
+        assertTrue(ex.getMessage().contains("don't know that command"));
     }
 
     @Test
