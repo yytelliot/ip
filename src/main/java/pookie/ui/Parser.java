@@ -8,6 +8,7 @@ import pookie.command.FindCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
+import pookie.exception.PookieException;
 
 /**
  * Parses user input into commands.
@@ -19,8 +20,9 @@ public class Parser {
      *
      * @param input the user input string
      * @return the corresponding Command object
+     * @throws PookieException if the command is unknown
      */
-    public Command parse(String input) {
+    public Command parse(String input) throws PookieException {
         input = input.trim();
 
         // single-word commands
@@ -53,7 +55,8 @@ public class Parser {
                 return new DeleteCommand(parts);
             }
             default -> {
-                return new AddCommand(parts);
+                throw new PookieException("Owo? I don't know that command! >w< "
+                        + "Try: todo, deadline, event, mark, unmark, delete, list, find, or bye.");
             }
         }
 

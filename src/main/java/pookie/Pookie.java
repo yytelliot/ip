@@ -48,27 +48,16 @@ public class Pookie {
      * @return Pookie's response.
      */
     public String getResponse(String userInput) {
-
-
-        // parse and execute command
-        Command command = parser.parse(userInput);
-
         try {
-
-            // try to execute the command
+            Command command = parser.parse(userInput);
             String response = command.execute(taskList, storage);
             if (command.isExit()) {
                 isExit = true;
             }
-
-            // print response
             return response;
-
         } catch (PookieException e) {
-            // print error message
             return e.getMessage();
         }
-
     }
 
     /**
@@ -107,9 +96,8 @@ public class Pookie {
      */
     private boolean processUserInput(Scanner sc) {
         String userInput = sc.nextLine();
-        Command command = parser.parse(userInput);
-
         try {
+            Command command = parser.parse(userInput);
             String response = command.execute(taskList, storage);
             ui.showResponse(response);
             return !command.isExit();

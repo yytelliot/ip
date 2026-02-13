@@ -15,14 +15,11 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, pookie.storage.Storage storage) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Pookie found some tasks! :3\n");
-        int count = 1;
+        pookie.task.TaskList filtered = new pookie.task.TaskList();
         for (var task : taskList.findTasks(keyword)) {
-            sb.append(count).append(". ").append(task.toString()).append("\n");
-            count++;
+            filtered.addTask(task);
         }
-        return sb.toString().trim();
+        return formatTaskList(filtered, "Pookie found some tasks! :3");
     }
 
 }
