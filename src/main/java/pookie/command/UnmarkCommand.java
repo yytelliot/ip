@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new PookieException("Owo? The index provided is not a number! >w<!");
         } catch (IndexOutOfBoundsException e) {
-            throw new PookieException(">w<! That task index is out of range!");
+            throw new PookieException("Owo? That task index doesn't exist! >w<!");
         }
         task.markAsUndone();
         try {

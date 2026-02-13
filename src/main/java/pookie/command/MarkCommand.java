@@ -34,7 +34,7 @@ public class MarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new PookieException("Owo? The index provided is not a number! >w<!");
         } catch (IndexOutOfBoundsException e) {
-            return e.getMessage();
+            throw new PookieException("Owo? That task index doesn't exist! >w<!");
         }
         task.markAsDone();
 
