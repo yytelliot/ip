@@ -68,93 +68,139 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage) throws PookieException {
-
         if (args.length < 2) {
             throw new PookieException("Please provide a task to add! >w<");
         }
 
-        String taskType = args[0];
+        Task task = createTask(args[0]);
+        saveAndRespond(taskList, storage, task);
+        return buildResponseMessage(task, taskList);
+    }
 
-        Task task;
+    /**
+     * Creates a task based on the specified task type.
+     *
+     * @param taskType the type of task to create ('todo', 'deadline', or 'event')
+     * @return the created Task object
+     * @throws PookieException if the task type is unknown
+     */
+    private Task createTask(String taskType) throws PookieException {
+        return switch (taskType) {
+            case "todo" -> createTodoTask();
+            case "deadline" -> createDeadlineTask();
+            case "event" -> createEventTask();
+            default -> throw new PookieException("Pookie doesn't know the task: " + taskType
+                    + ". Please use 'todo', 'deadline', or 'event'. ;w;");
+        };
+    }
 
-        switch (taskType) {
-            case "todo" -> {
-                String description = join(args, 1, args.length);
-                if (description.isEmpty()) {
-                    throw new PookieException("The description of a todo cannot be empty! >w<");
-                }
-                task = new TodoTask(description);
-            }
+    /**
+     * Creates a todo task from the command arguments.
+     *
+     * @return a new TodoTask with the provided description
+     * @throws PookieException if the description is empty
+     */
+    private Task createTodoTask() throws PookieException {
+        String description = join(args, 1, args.length);
+        if (description.isEmpty()) {
+            throw new PookieException("The description of a todo cannot be empty! >w<");
+        }
+        return new TodoTask(description);
+    }
 
-            case "deadline" -> {
-                int byIdx = findToken(args, 1, "/by");
-                if (byIdx == -1) {
-                    throw new PookieException("Please provide a description and deadline using '/by'! >w<");
-                }
-
-                String taskDescription = join(args, 1, byIdx);
-                String byTime = join(args, byIdx + 1, args.length);
-
-                if (taskDescription.isEmpty() || byTime.isEmpty()) {
-                    throw new PookieException("The description or deadline of the deadline cannot be empty! >w<");
-                }
-
-                LocalDate byDate = parseInputDate(byTime);
-                if (byDate == null) {
-                    throw new PookieException(">w<! I don't know this format: \"" + byTime + "\". "
-                            + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-                }
-                task = new DeadlineTask(taskDescription, byDate);
-            }
-
-            case "event" -> {
-                int fromIdx = findToken(args, 1, "/from");
-                int toIdx = findToken(args, 1, "/to");
-
-                if (fromIdx == -1 || toIdx == -1 || fromIdx >= toIdx) {
-                    throw new PookieException("Please provide event description and time using '/from' and '/to'! >w<");
-                }
-
-                String eventDescription = join(args, 1, fromIdx);
-                String fromTime = join(args, fromIdx + 1, toIdx);
-                String toTime = join(args, toIdx + 1, args.length);
-
-                if (eventDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                    throw new PookieException(
-                            "The description, from time, and to time of the event cannot be empty! >w<");
-                }
-
-                LocalDate fromDate = parseInputDate(fromTime);
-                LocalDate toDate = parseInputDate(toTime);
-
-                if (fromDate == null) {
-                    throw new PookieException(">w<! Pookie doesn't know this format: \"" + fromTime + "\". "
-                            + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-                }
-
-                if (toDate == null) {
-                    throw new PookieException(">w<! Pookie doesn't don't know this format: \"" + toTime + "\". "
-                            + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-                }
-
-                task = new EventTask(eventDescription, fromDate, toDate);
-            }
-
-            default -> {
-                throw new PookieException("Pookie doesn't know the task: " + taskType
-                        + ". Please use 'todo', 'deadline', or 'event'. ;w;");
-            }
+    /**
+     * Creates a deadline task from the command arguments.
+     * Expects format: deadline <description> /by <date>
+     *
+     * @return a new DeadlineTask with the provided description and deadline
+     * @throws PookieException if required fields are missing or date format is invalid
+     */
+    private Task createDeadlineTask() throws PookieException {
+        int byIdx = findToken(args, 1, "/by");
+        if (byIdx == -1) {
+            throw new PookieException("Please provide a description and deadline using '/by'! >w<");
         }
 
-        // add task to task list
+        String taskDescription = join(args, 1, byIdx);
+        String byTime = join(args, byIdx + 1, args.length);
+
+        if (taskDescription.isEmpty() || byTime.isEmpty()) {
+            throw new PookieException("The description or deadline of the deadline cannot be empty! >w<");
+        }
+
+        LocalDate byDate = parseInputDate(byTime);
+        if (byDate == null) {
+            throw new PookieException(">w<! I don't know this format: \"" + byTime + "\". "
+                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
+        }
+        return new DeadlineTask(taskDescription, byDate);
+    }
+
+    /**
+     * Creates an event task from the command arguments.
+     * Expects format: event <description> /from <start date> /to <end date>
+     *
+     * @return a new EventTask with the provided description and date range
+     * @throws PookieException if required fields are missing or date formats are invalid
+     */
+    private Task createEventTask() throws PookieException {
+        int fromIdx = findToken(args, 1, "/from");
+        int toIdx = findToken(args, 1, "/to");
+
+        if (fromIdx == -1 || toIdx == -1 || fromIdx >= toIdx) {
+            throw new PookieException("Please provide event description and time using '/from' and '/to'! >w<");
+        }
+
+        String eventDescription = join(args, 1, fromIdx);
+        String fromTime = join(args, fromIdx + 1, toIdx);
+        String toTime = join(args, toIdx + 1, args.length);
+
+        if (eventDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+            throw new PookieException(
+                    "The description, from time, and to time of the event cannot be empty! >w<");
+        }
+
+        LocalDate fromDate = parseInputDate(fromTime);
+        LocalDate toDate = parseInputDate(toTime);
+
+        if (fromDate == null) {
+            throw new PookieException(">w<! Pookie doesn't know this format: \"" + fromTime + "\". "
+                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
+        }
+
+        if (toDate == null) {
+            throw new PookieException(">w<! Pookie doesn't don't know this format: \"" + toTime + "\". "
+                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
+        }
+
+        return new EventTask(eventDescription, fromDate, toDate);
+    }
+
+    /**
+     * Saves the task to the task list and storage.
+     *
+     * @param taskList the task list to add the task to
+     * @param storage the storage to persist changes
+     * @param task the task to save
+     * @throws PookieException if saving fails
+     */
+    private void saveAndRespond(TaskList taskList, Storage storage, Task task) throws PookieException {
         try {
             taskList.addTask(task);
             storage.saveTaskList(taskList);
         } catch (IllegalStateException | IOException e) {
             throw new PookieException(e.getMessage());
         }
+    }
 
-        // print message
+    /**
+     * Builds the response message for successfully adding a task.
+     *
+     * @param task the task that was added
+     * @param taskList the updated task list
+     * @return a formatted response message
+     */
+    private String buildResponseMessage(Task task, TaskList taskList) {
         return """
             Pookie has added your task! ^w^
               %s
