@@ -1,6 +1,8 @@
 package pookie.command;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
@@ -86,5 +88,50 @@ public abstract class Command {
                     .append("\n");
         }
         return sb.toString().trim();
+    }
+
+    protected List<Integer> parseTaskIndices(TaskList taskList, String[] indexStrs) throws PookieException {
+        List<Integer> indices = new ArrayList<>();
+        for (String indexStr : indexStrs) {
+            if (indexStr.contains("-")) {
+                indices.addAll(parseRange(taskList, indexStr));
+                continue;
+            }
+
+            indices.add(parseSingleIndex(taskList, indexStr));
+        }
+        return indices;
+    }
+
+    private List<Integer> parseRange(TaskList taskList, String rangeStr) throws PookieException {
+        String[] parts = rangeStr.split("-", -1);
+        List<Integer> indices = new ArrayList<>();
+        if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+            throw new PookieException("Owo? The index range " + rangeStr + " is invalid! >w<!");
+        }
+
+        int startIndex = parseSingleIndex(taskList, parts[0]);
+        int endIndex = parseSingleIndex(taskList, parts[1]);
+        if (startIndex > endIndex) {
+            throw new PookieException("Owo? The index range is invalid! >w<!");
+        }
+        for (int i = startIndex; i <= endIndex; i++) {
+            indices.add(i);
+        }
+        return indices;
+    }
+
+    private int parseSingleIndex(TaskList taskList, String indexStr) throws PookieException {
+        try {
+            int index = Integer.parseInt(indexStr) - 1;
+            if (index < 0 || index >= taskList.getTaskCount()) {
+                throw new IndexOutOfBoundsException();
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new PookieException("Owo? The index " + indexStr + " is not a number! >w<!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new PookieException("Owo? The task index " + indexStr + " doesn't exist! >w<!");
+        }
     }
 }
