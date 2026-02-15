@@ -17,6 +17,7 @@ public class TaskList {
      * @throws IllegalStateException if the task list is full
      */
     public void addTask(Task task) {
+        assert task != null : "Task must not be null";
         tasks.add(task);
     }
 
@@ -47,6 +48,7 @@ public class TaskList {
      * @return List of tasks that match the keyword
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null : "Search keyword must not be null";
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {

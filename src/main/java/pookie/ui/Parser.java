@@ -21,6 +21,7 @@ public class Parser {
      * @return the corresponding Command object
      */
     public Command parse(String input) {
+        assert input != null : "Input must not be null";
         input = input.trim();
 
         // single-word commands

@@ -43,6 +43,8 @@ public abstract class Command {
      * @throws PookieException if index is not a valid number or is out of bounds
      */
     protected Task getTaskByIndex(TaskList taskList, String indexStr) throws PookieException {
+        assert taskList != null : "Task list must not be null";
+        assert indexStr != null : "Index string must not be null";
         try {
             int index = Integer.parseInt(indexStr) - 1;
             return taskList.getTask(index);
