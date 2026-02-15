@@ -185,7 +185,7 @@ public class Storage {
         for (int i = 0; i < taskCount; i++) {
             Task task = taskList.getTask(i);
             String type = task.getType();
-            String statusIcon = task.getStatus() ? "1" : "0";
+            String statusIcon = task.isDone() ? "1" : "0";
             String description = task.getDescription();
 
             sb.append(type).append(" | ").append(statusIcon).append(" | ").append(description);

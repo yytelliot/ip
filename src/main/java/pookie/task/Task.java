@@ -19,7 +19,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public boolean getStatus() {
+    public boolean isDone() {
         return isDone;
     }
 
@@ -39,7 +39,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        String statusIcon = getStatus() ? "[X]" : "[ ]";
+        String statusIcon = isDone() ? "[X]" : "[ ]";
         return "[" + getType() + "]" + statusIcon + " " + description;
     }
 }

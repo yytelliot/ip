@@ -1,5 +1,7 @@
 package pookie.command;
 
+import java.util.List;
+
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
@@ -22,10 +24,20 @@ public class UnmarkCommand extends Command {
             throw new PookieException("Please provide the index of the task to unmark! >w<");
         }
 
-        Task task = getTaskByIndex(taskList, args[1]);
-        task.markAsUndone();
+        String[] indicesArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, indicesArgs, 0, args.length - 1);
+
+        List<Integer> indices = parseTaskIndices(taskList, indicesArgs);
+        List<Task> tasks = getTasksByIndices(taskList, indices);
+
+        for (Task task : tasks) {
+            task.markAsUndone();
+        }
         saveTaskList(taskList, storage);
 
-        return "OK, I've marked this task as not done yet ;w;\n  " + task.toString();
+        String header = indices.size() == 1
+                ? "OK, I've marked this task as not done yet ;w;"
+                : "OK, I've marked these tasks as not done yet ;w;";
+        return formatTasksWithIndices(header, indices, tasks);
     }
 }

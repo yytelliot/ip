@@ -1,5 +1,9 @@
 package pookie.command;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
@@ -22,29 +26,24 @@ public class DeleteCommand extends Command {
             throw new PookieException(">w<! Please provide the index of the task to delete!");
         }
 
-        Task removed = deleteTaskByIndex(taskList, storage);
-        return "I've deleted this task! >:3\n  " + removed;
-    }
+        String[] indicesArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, indicesArgs, 0, args.length - 1);
 
-    /**
-     * Deletes a task by its index from the task list.
-     * 
-     * @param taskList The task list.
-     * @param storage The storage to save the updated task list.
-     * @return The deleted task.
-     * @throws PookieException If the index is invalid or not a number.
-     */
-    private Task deleteTaskByIndex(TaskList taskList, Storage storage) throws PookieException {
-        try {
-            int index = Integer.parseInt(args[1]) - 1;
-            Task removed = taskList.deleteTask(index);
-            saveTaskList(taskList, storage);
-            return removed;
-        } catch (NumberFormatException e) {
-            throw new PookieException("Owo? The index provided is not a number! >w<!");
-        } catch (IndexOutOfBoundsException e) {
-            throw new PookieException("Owo? That task index doesn't exist! >w<!");
+        List<Integer> indices = parseTaskIndices(taskList, indicesArgs);
+        List<Task> tasksToDelete = getTasksByIndices(taskList, indices);
+
+        // Delete in descending order to avoid index shifting
+        List<Integer> sortedIndices = new ArrayList<>(indices);
+        sortedIndices.sort(Collections.reverseOrder());
+        for (int index : sortedIndices) {
+            taskList.deleteTask(index);
         }
+        saveTaskList(taskList, storage);
+
+        String header = indices.size() == 1
+                ? "I've deleted this task! >:3"
+                : "I've deleted these tasks! >:3";
+        return formatTasksWithIndices(header, indices, tasksToDelete);
     }
 
 }
