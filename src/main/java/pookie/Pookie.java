@@ -48,27 +48,16 @@ public class Pookie {
      * @return Pookie's response.
      */
     public String getResponse(String userInput) {
-
-
-        // parse and execute command
-        Command command = parser.parse(userInput);
-
         try {
-
-            // try to execute the command
+            Command command = parser.parse(userInput);
             String response = command.execute(taskList, storage);
             if (command.isExit()) {
                 isExit = true;
             }
-
-            // print response
             return response;
-
         } catch (PookieException e) {
-            // print error message
             return e.getMessage();
         }
-
     }
 
     /**
@@ -84,44 +73,37 @@ public class Pookie {
      * Runs the Pookie application.
      */
     public void run() {
-        // Implementation of run method if needed
         Scanner sc = new Scanner(System.in);
-
-
         ui.showWelcomeMessage();
 
         try {
-
-            // Main loop
             while (true) {
-
-                // read user input
-                String userInput = sc.nextLine();
-
-                // parse and execute command
-                Command command = parser.parse(userInput);
-
-                try {
-
-                    // try to execute the command
-                    String response = command.execute(taskList, storage);
-
-                    // print response
-                    ui.showResponse(response);
-
-                    // exit if command is exit command
-                    if (command.isExit()) {
-                        break;
-                    }
-
-                } catch (PookieException e) {
-                    // print error message
-                    ui.showError(e.getMessage());
+                if (!processUserInput(sc)) {
+                    break;
                 }
             }
-
         } finally {
             sc.close();
+        }
+    }
+
+    /**
+     * Processes a single line of user input.
+     * Parses the input into a command, executes it, and displays the response.
+     *
+     * @param sc the Scanner to read user input from
+     * @return false if the command is an exit command, true otherwise
+     */
+    private boolean processUserInput(Scanner sc) {
+        String userInput = sc.nextLine();
+        try {
+            Command command = parser.parse(userInput);
+            String response = command.execute(taskList, storage);
+            ui.showResponse(response);
+            return !command.isExit();
+        } catch (PookieException e) {
+            ui.showError(e.getMessage());
+            return true;
         }
     }
 
