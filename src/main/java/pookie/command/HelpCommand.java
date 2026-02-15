@@ -38,7 +38,7 @@ public class HelpCommand extends Command {
 
                 Marking Tasks (supports single index, multiple indices, or ranges):
                   mark <index|range ...>
-                    Mark task(s) as done ^w^ ✓
+                    Mark task(s) as done. ^w^ ✓
                     Examples: mark 1
                              mark 1 3 5
                              mark 2-4
@@ -59,15 +59,15 @@ public class HelpCommand extends Command {
 
                 Exit:
                   bye / kthxbye
-                    Exit the application. See you later! ✨
+                    Exit the application. ;w;
 
                 ═══════════════════════════════════════
                 Pro Tip: Use batch operations for 'mark', 'unmark', and 'delete'
                 with multiple indices or ranges! Examples:
                   mark 1-5        (marks tasks 1 through 5)
                   delete 1 3-5 7  (deletes tasks 1, 3, 4, 5, and 7)
-                
-                UwU! Let Pookie help you stay organized!
-                """;
+
+                UwU! Let Pookie help you!"""
+                .stripIndent();
     }
 }

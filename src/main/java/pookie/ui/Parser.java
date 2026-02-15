@@ -5,6 +5,7 @@ import pookie.command.Command;
 import pookie.command.DeleteCommand;
 import pookie.command.ExitCommand;
 import pookie.command.FindCommand;
+import pookie.command.HelpCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
@@ -30,6 +31,9 @@ public class Parser {
         }
         if (input.equals("list")) {
             return new ListCommand();
+        }
+        if (input.equals("help")) {
+            return new HelpCommand();
         }
 
         // commands with single arguments
