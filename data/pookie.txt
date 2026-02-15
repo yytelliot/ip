@@ -1,5 +1,2 @@
 T | 1 | add pee
-T | 0 | assfe feasd
-T | 0 | goon sesh /from 09/03/2003 /to 10/12/2004
-T | 1 | pee
-E | 0 | cny reuunion | 2023-02-15 | 2323-03-16
+E | 1 | cny reuunion | 2023-02-15 | 2323-03-16
