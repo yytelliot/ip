@@ -1,5 +1,7 @@
 package pookie.command;
 
+import java.util.List;
+
 import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
@@ -22,10 +24,20 @@ public class MarkCommand extends Command {
             throw new PookieException("Please provide the index of the task to mark! >w<");
         }
 
-        Task task = getTaskByIndex(taskList, args[1]);
-        task.markAsDone();
+        String[] indicesArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, indicesArgs, 0, args.length - 1);
+
+        List<Integer> indices = parseTaskIndices(taskList, indicesArgs);
+        List<Task> tasks = getTasksByIndices(taskList, indices);
+
+        for (Task task : tasks) {
+            task.markAsDone();
+        }
         saveTaskList(taskList, storage);
 
-        return "Nice! Pookie will mark this task as done x3\n  " + task.toString();
+        String header = indices.size() == 1
+                ? "Nice! Pookie will mark this task as done x3"
+                : "Nice! Pookie will mark these tasks as done x3";
+        return formatTasksWithIndices(header, indices, tasks);
     }
 }

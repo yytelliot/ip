@@ -90,6 +90,40 @@ public abstract class Command {
         return sb.toString().trim();
     }
 
+    /**
+     * Retrieves tasks by their 0-based indices.
+     *
+     * @param taskList the task list to retrieve from
+     * @param indices list of 0-based indices
+     * @return list of tasks at the specified indices
+     */
+    protected List<Task> getTasksByIndices(TaskList taskList, List<Integer> indices) {
+        List<Task> tasks = new ArrayList<>();
+        for (int index : indices) {
+            tasks.add(taskList.getTask(index));
+        }
+        return tasks;
+    }
+
+    /**
+     * Formats a list of tasks, displaying each with its original position number from the task list.
+     * Used to show which specific tasks were affected by batch operations.
+     *
+     * @param header the header message to display
+     * @param indices the 0-based indices corresponding to each task's original position
+     * @param tasks the tasks to display
+     * @return a string with the header followed by tasks labeled with their original 1-based positions
+     */
+    protected String formatTasksWithIndices(String header, List<Integer> indices, List<Task> tasks) {
+        StringBuilder sb = new StringBuilder(header).append("\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append("  ").append(indices.get(i) + 1).append(". ")
+                    .append(tasks.get(i))
+                    .append("\n");
+        }
+        return sb.toString().trim();
+    }
+
     protected List<Integer> parseTaskIndices(TaskList taskList, String[] indexStrs) throws PookieException {
         List<Integer> indices = new ArrayList<>();
         for (String indexStr : indexStrs) {
@@ -113,7 +147,7 @@ public abstract class Command {
         int startIndex = parseSingleIndex(taskList, parts[0]);
         int endIndex = parseSingleIndex(taskList, parts[1]);
         if (startIndex > endIndex) {
-            throw new PookieException("Owo? The index range is invalid! >w<!");
+            throw new PookieException("Owo? The index range " + rangeStr + " is invalid! >w<!");
         }
         for (int i = startIndex; i <= endIndex; i++) {
             indices.add(i);
