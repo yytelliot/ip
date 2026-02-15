@@ -21,6 +21,8 @@ public class EventTask extends Task {
      */
     public EventTask(String description, LocalDate from, LocalDate to) {
         super(description);
+        assert from != null : "Event start date must not be null";
+        assert to != null : "Event end date must not be null";
         this.from = from;
         this.to = to;
     }

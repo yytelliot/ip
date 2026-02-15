@@ -23,6 +23,7 @@ public class Storage {
     private final Path filePath;
 
     public Storage(Path filePath) {
+        assert filePath != null : "Storage file path must not be null";
         this.filePath = filePath;
     }
 
@@ -75,6 +76,7 @@ public class Storage {
      * @return an array of trimmed task components
      */
     private String[] parseLine(String line) {
+        assert line != null : "Storage line must not be null";
         String[] parts = line.split("\\|");
         for (int i = 0; i < parts.length; i++) {
             parts[i] = parts[i].trim();
@@ -112,6 +114,9 @@ public class Storage {
     private Task parseDeadlineTask(String description, String[] parts) {
         String by = parts[3];
         LocalDate byDate = parseDateWithFormats(by, Formats.ACCEPTED_INPUT_FORMATS);
+        if (byDate == null) {
+            return null;
+        }
         return new DeadlineTask(description, byDate);
     }
 
@@ -126,6 +131,9 @@ public class Storage {
     private Task parseEventTask(String description, String[] parts) {
         LocalDate fromDate = parseDateWithFormat(parts[3], Formats.STORAGE_DATE);
         LocalDate toDate = parseDateWithFormat(parts[4], Formats.STORAGE_DATE);
+        if (fromDate == null || toDate == null) {
+            return null;
+        }
         return new EventTask(description, fromDate, toDate);
     }
 

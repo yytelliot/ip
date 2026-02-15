@@ -19,7 +19,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, LocalDate byDate) {
         super(description);
-
+        assert byDate != null : "Deadline date must not be null";
         this.byDate = byDate;
     }
 

@@ -31,6 +31,7 @@ public class AddCommand extends Command {
      * @param taskList the task list to add the task to
      */
     public AddCommand(String[] args) {
+        assert args != null : "Command arguments must not be null";
         this.args = args;
     }
 
@@ -43,6 +44,8 @@ public class AddCommand extends Command {
      * @return the index of the token, or -1 if not found
      */
     private static int findToken(String[] arr, int start, String token) {
+        assert arr != null : "Token search array must not be null";
+        assert token != null : "Token must not be null";
         for (int i = start; i < arr.length; i++) {
             if (arr[i].equals(token)) {
                 return i;
@@ -60,6 +63,7 @@ public class AddCommand extends Command {
      * @return the joined string
      */
     private static String join(String[] arr, int start, int endExclusive) {
+        assert arr != null : "Join array must not be null";
         if (start >= endExclusive) {
             return "";
         }
