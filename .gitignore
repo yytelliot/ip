@@ -22,3 +22,4 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 pookie_data.txt
+test_data.txt
