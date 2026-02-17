@@ -100,10 +100,22 @@ public class Pookie {
             Command command = parser.parse(userInput);
             String response = command.execute(taskList, storage);
             ui.showResponse(response);
-            return !command.isExit();
+            if (command.isExit()) {
+                delayExit();
+                return false;
+            }
+            return true;
         } catch (PookieException e) {
             ui.showError(e.getMessage());
             return true;
+        }
+    }
+
+    private void delayExit() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
