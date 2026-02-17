@@ -19,6 +19,9 @@ public class FindCommand extends Command {
         for (var task : taskList.findTasks(keyword)) {
             filtered.addTask(task);
         }
+        if (filtered.getTaskCount() == 0) {
+            return "Pookie couldn't find any tasks with that keyword! >w<";
+        }
         return formatTaskList(filtered, "Pookie found some tasks! :3");
     }
 
