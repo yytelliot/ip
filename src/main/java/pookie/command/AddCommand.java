@@ -120,24 +120,31 @@ public class AddCommand extends Command {
      * @throws PookieException if required fields are missing or date format is invalid
      */
     private Task createDeadlineTask() throws PookieException {
+        DeadlineParts parts = extractDeadlineParts();
+        LocalDate byDate = parseInputDate(parts.dateStr());
+        return new DeadlineTask(parts.description(), byDate);
+    }
+
+    /**
+     * Extracts and validates the deadline description and time string.
+     *
+     * @return DeadlineParts containing description and dateStr
+     * @throws PookieException if token or descriptions are invalid
+     */
+    private DeadlineParts extractDeadlineParts() throws PookieException {
         int byIdx = findToken(args, 1, "/by");
         if (byIdx == -1) {
             throw new PookieException("Please provide a description and deadline using '/by'! >w<");
         }
 
-        String taskDescription = join(args, 1, byIdx);
+        String description = join(args, 1, byIdx);
         String byTime = join(args, byIdx + 1, args.length);
 
-        if (taskDescription.isEmpty() || byTime.isEmpty()) {
+        if (description.isEmpty() || byTime.isEmpty()) {
             throw new PookieException("The description or deadline of the deadline cannot be empty! >w<");
         }
 
-        LocalDate byDate = parseInputDate(byTime);
-        if (byDate == null) {
-            throw new PookieException(">w<! I don't know this format: \"" + byTime + "\". "
-                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-        }
-        return new DeadlineTask(taskDescription, byDate);
+        return new DeadlineParts(description, byTime);
     }
 
     /**
@@ -148,6 +155,24 @@ public class AddCommand extends Command {
      * @throws PookieException if required fields are missing or date formats are invalid
      */
     private Task createEventTask() throws PookieException {
+        EventParts parts = extractEventParts();
+        LocalDate fromDate = parseInputDate(parts.fromTime());
+        LocalDate toDate = parseInputDate(parts.toTime());
+
+        if (fromDate.isAfter(toDate)) {
+            throw new PookieException("Owo? The 'from' date cannot be after the 'to' date! >w<");
+        }
+
+        return new EventTask(parts.description(), fromDate, toDate);
+    }
+
+    /**
+     * Extracts and validates the event description and time strings.
+     *
+     * @return EventParts containing description, fromTime, and toTime
+     * @throws PookieException if tokens or descriptions are invalid
+     */
+    private EventParts extractEventParts() throws PookieException {
         int fromIdx = findToken(args, 1, "/from");
         int toIdx = findToken(args, 1, "/to");
 
@@ -155,29 +180,16 @@ public class AddCommand extends Command {
             throw new PookieException("Please provide event description and time using '/from' and '/to'! >w<");
         }
 
-        String eventDescription = join(args, 1, fromIdx);
+        String description = join(args, 1, fromIdx);
         String fromTime = join(args, fromIdx + 1, toIdx);
         String toTime = join(args, toIdx + 1, args.length);
 
-        if (eventDescription.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
+        if (description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
             throw new PookieException(
                     "The description, from time, and to time of the event cannot be empty! >w<");
         }
 
-        LocalDate fromDate = parseInputDate(fromTime);
-        LocalDate toDate = parseInputDate(toTime);
-
-        if (fromDate == null) {
-            throw new PookieException(">w<! Pookie doesn't know this format: \"" + fromTime + "\". "
-                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-        }
-
-        if (toDate == null) {
-            throw new PookieException(">w<! Pookie doesn't don't know this format: \"" + toTime + "\". "
-                    + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
-        }
-
-        return new EventTask(eventDescription, fromDate, toDate);
+        return new EventParts(description, fromTime, toTime);
     }
 
     /**
@@ -212,7 +224,7 @@ public class AddCommand extends Command {
             """.formatted(task, taskList.getTaskCount());
     }
 
-    private LocalDate parseInputDate(String dateStr) {
+    private LocalDate parseInputDate(String dateStr) throws PookieException {
         for (DateTimeFormatter f : Formats.ACCEPTED_INPUT_FORMATS) {
             try {
                 return LocalDate.parse(dateStr, f);
@@ -220,7 +232,11 @@ public class AddCommand extends Command {
                 // Try next format
             }
         }
-
-        return null;
+        throw new PookieException(">w<! Pookie doesn't know this format: \"" + dateStr + "\". "
+                + "Please use something like: Jan 28 2026 or 2026-01-28 ^w^");
     }
+
+    private record DeadlineParts(String description, String dateStr) {}
+
+    private record EventParts(String description, String fromTime, String toTime) {}
 }
