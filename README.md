@@ -2,7 +2,7 @@
 
 > Your adorable task management companion! :3
 
-Pookie is a friendly task management application with both CLI and GUI interfaces. Never forget a deadline or miss an event again with Pookie by your side! OwO
+Pookie is a friendly task management application with both CLI and GUI interfaces. Never forget a deadline or miss an event again with Pookie by your side! ^w^
 
 ![Pookie Interface](docs/Ui.png)
 
