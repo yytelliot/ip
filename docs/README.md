@@ -2,9 +2,9 @@
 
 > Your adorable task management companion! :3
 
-Pookie helps you keep track of your todos, deadlines, and events. Never forget what you need to do again! OwO
+Pookie helps you keep track of your todos, deadlines, and events. Never forget what you need to do again! ^w^
 
-![Pookie Interface](Pookie%20Screenshot.png)
+![Pookie Interface](Ui.png)
 
 ## Quick Start
 
@@ -51,6 +51,7 @@ deadline submit report /by 2026-02-20
 event conference /from 2026-03-01 /to 2026-03-03
 ```
 
+
 ### Managing tasks
 
 **List all tasks**
@@ -86,9 +87,11 @@ find meeting
 ```
 Search for tasks containing a keyword.
 
+
 ### Getting help
 
 Type `help` anytime to see the full list of commands with examples.
+
 
 ### Exiting
 
@@ -106,4 +109,4 @@ A: Just Java 17 or above. Your system might already have it!
 
 ---
 
-Made with ♥ and lots of uwu energy
+Made with ♥ and lots of uwu
