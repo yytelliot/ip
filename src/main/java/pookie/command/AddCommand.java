@@ -36,7 +36,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Find the index of a token in an array starting from a given index.
+     * Finds the index of a token in an array starting from a given index.
      *
      * @param arr the array to search
      * @param start the starting index
