@@ -224,6 +224,13 @@ public class AddCommand extends Command {
             """.formatted(task, taskList.getTaskCount());
     }
 
+    /**
+     * Parses a date string using multiple accepted input formats.
+     *
+     * @param dateStr the date string to parse
+     * @return the parsed LocalDate
+     * @throws PookieException if the date string does not match any accepted format
+     */
     private LocalDate parseInputDate(String dateStr) throws PookieException {
         for (DateTimeFormatter f : Formats.ACCEPTED_INPUT_FORMATS) {
             try {
