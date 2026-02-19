@@ -15,8 +15,8 @@ then
     rm -f ACTUAL.TXT SOURCES.TXT EXPECTED-UNIX.TXT
 fi
 
-# collect all java files under src/main/java into SOURCES.TXT
-find ../src/main/java -name "*.java" > SOURCES.TXT
+# collect all java files under src/main/java into SOURCES.TXT (excluding GUI classes)
+find ../src/main/java -name "*.java" ! -name "Launcher.java" ! -name "Main.java" ! -name "MainWindow.java" ! -name "DialogBox.java" > SOURCES.TXT
 
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -Xlint:none -d ../bin -sourcepath ../src/main/java @SOURCES.TXT
