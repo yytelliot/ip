@@ -4,12 +4,13 @@
     {
       "label": "build",
       "type": "shell",
-      "command": "rm -rf bin && mkdir -p bin && javac -d bin $(find src/main/java -name \"*.java\")",
+      "command": "./gradlew",
+      "args": ["build"],
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": ["$javac"],
+      "problemMatcher": ["$java"],
       "presentation": {
         "reveal": "always",
         "panel": "shared"

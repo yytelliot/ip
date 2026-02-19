@@ -1,5 +1,0 @@
-T | 1 | add pee
-E | 1 | cny reuunion | 2023-02-15 | 2323-03-16
-T | 0 | clean toilet
-E | 0 | guests coming | 2026-03-09 | 2026-03-10
-T | 0 | read book

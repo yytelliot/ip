@@ -1,16 +1,37 @@
 {
   "version": "0.2.0",
   "configurations": [
+
+    {
+      "type": "java",
+      "name": "Launcher",
+      "request": "launch",
+      "mainClass": "pookie.ui.Launcher",
+      "preLaunchTask": "build",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "java",
+      "name": "Debug Pookie",
+      "request": "launch",
+      "mainClass": "pookie.Pookie",
+      "preLaunchTask": "build",
+      "console": "integratedTerminal"
+    },
     {
       "type": "java",
       "name": "Run Pookie (no debug)",
       "request": "launch",
       "mainClass": "pookie.Pookie",
       "preLaunchTask": "build",
-      "classPaths": [
-        "${workspaceFolder}/bin"
-      ],
       "console": "integratedTerminal"
+    },
+    {
+      "type": "java",
+      "name": "Attach to Pookie",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
     }
   ]
 }
