@@ -180,29 +180,30 @@ public class Storage {
         ensureFileExists();
 
         StringBuilder sb = new StringBuilder();
-        int taskCount = taskList.getTaskCount();
-
-        for (int i = 0; i < taskCount; i++) {
-            Task task = taskList.getTask(i);
-            String type = task.getType();
-            String statusIcon = task.isDone() ? "1" : "0";
-            String description = task.getDescription();
-
-            sb.append(type).append(" | ").append(statusIcon).append(" | ").append(description);
-
-            if (task instanceof DeadlineTask deadlineTask) {
-                String byTime = deadlineTask.getByTime().format(Formats.STORAGE_DATE);
-                sb.append(" | ").append(byTime);
-            } else if (task instanceof EventTask eventTask) {
-                String fromTime = eventTask.getFromTime().format(Formats.STORAGE_DATE);
-                String toTime = eventTask.getToTime().format(Formats.STORAGE_DATE);
-                sb.append(" | ").append(fromTime).append(" | ").append(toTime);
-            }
-
-            sb.append("\n");
+        for (int i = 0; i < taskList.getTaskCount(); i++) {
+            sb.append(formatTaskForStorage(taskList.getTask(i))).append("\n");
         }
 
         Files.writeString(filePath, sb.toString());
+    }
+
+    /**
+     * Formats a task into its storage representation.
+     *
+     * @param task the task to format
+     * @return the formatted storage string
+     */
+    private String formatTaskForStorage(Task task) {
+        String status = task.isDone() ? "1" : "0";
+        String base = task.getType() + " | " + status + " | " + task.getDescription();
+
+        if (task instanceof DeadlineTask dt) {
+            return base + " | " + dt.getByTime().format(Formats.STORAGE_DATE);
+        } else if (task instanceof EventTask et) {
+            return base + " | " + et.getFromTime().format(Formats.STORAGE_DATE)
+                    + " | " + et.getToTime().format(Formats.STORAGE_DATE);
+        }
+        return base;
     }
 
 }
