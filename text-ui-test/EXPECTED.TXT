@@ -4,32 +4,29 @@ What can I do for you? OwO
 ==============================
 
 ==============================
-I have added your task! ^w^
+Pookie has added your task! ^w^
   [T][ ] go toilet
 Now you have 1 tasks in the list! UwU
-
 ==============================
 
 ==============================
-I have added your task! ^w^
+Pookie has added your task! ^w^
   [D][ ] clean toilet (by: Sep 8 2024)
 Now you have 2 tasks in the list! UwU
-
 ==============================
 
 ==============================
->w<! I don't know this format: "dusk". Please use something like: Jan 28 2026 or 2026-01-28 ^w^
+>w<! Pookie doesn't know this format: "dusk". Please use something like: Jan 28 2026 or 2026-01-28 ^w^
 ==============================
 
 ==============================
-I have added your task! ^w^
+Pookie has added your task! ^w^
   [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 Now you have 3 tasks in the list! UwU
-
 ==============================
 
 ==============================
-I don't know the task: baby. Please use 'todo', 'deadline', or 'event'. ;w;
+Pookie doesn't know the task: baby. Please use 'todo', 'deadline', or 'event'. ;w;
 ==============================
 
 ==============================
@@ -40,13 +37,13 @@ Here are the tasks in your list :3
 ==============================
 
 ==============================
-Nice! I've marked this task as done x3
-  [T][X] go toilet
+Nice! Pookie will mark this task as done x3
+  1. [T][X] go toilet
 ==============================
 
 ==============================
-Nice! I've marked this task as done x3
-  [D][X] clean toilet (by: Sep 8 2024)
+Nice! Pookie will mark this task as done x3
+  2. [D][X] clean toilet (by: Sep 8 2024)
 ==============================
 
 ==============================
@@ -58,7 +55,7 @@ Here are the tasks in your list :3
 
 ==============================
 OK, I've marked this task as not done yet ;w;
-  [D][ ] clean toilet (by: Sep 8 2024)
+  2. [D][ ] clean toilet (by: Sep 8 2024)
 ==============================
 
 ==============================
@@ -69,7 +66,7 @@ Here are the tasks in your list :3
 ==============================
 
 ==============================
-Owo? That task index doesn't exist! >w<!
+Owo? The task index 4 doesn't exist! >w<!
 ==============================
 
 ==============================
@@ -81,7 +78,7 @@ Here are the tasks in your list :3
 
 ==============================
 I've deleted this task! >:3
-  [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
+  3. [E][ ] guests come (from: Mar 9 2025 to: Mar 10 2025)
 ==============================
 
 ==============================
@@ -91,6 +88,6 @@ Here are the tasks in your list :3
 ==============================
 
 ==============================
-See you! TwT
+Bye bye! TwT
 ==============================
 
