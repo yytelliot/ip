@@ -220,8 +220,7 @@ public class AddCommand extends Command {
         return """
             Pookie has added your task! ^w^
               %s
-            Now you have %d tasks in the list! UwU
-            """.formatted(task, taskList.getTaskCount());
+            Now you have %d tasks in the list! UwU""".formatted(task, taskList.getTaskCount());
     }
 
     /**

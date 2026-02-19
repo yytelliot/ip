@@ -198,4 +198,46 @@ public abstract class Command {
             throw new PookieException("Owo? The task index " + indexStr + " doesn't exist! >w<!");
         }
     }
+
+    /**
+     * Functional interface for applying an operation to a task.
+     */
+    @FunctionalInterface
+    protected interface TaskOperation {
+        void apply(Task task);
+    }
+
+    /**
+     * Executes a batch operation on multiple tasks (mark, unmark, delete).
+     * Handles common logic: parse indices, get tasks, apply operation, save, format response.
+     *
+     * @param args the command arguments
+     * @param taskList the task list to operate on
+     * @param storage the storage to persist changes
+     * @param operation the operation to apply to each task
+     * @param singularMsg message for single task
+     * @param pluralMsg message for multiple tasks
+     * @return the formatted response message
+     * @throws PookieException if validation or parsing fails
+     */
+    protected String executeBatchOperation(String[] args, TaskList taskList, Storage storage,
+            TaskOperation operation, String singularMsg, String pluralMsg) throws PookieException {
+        if (args.length < MIN_INDEX_COMMAND_ARGS) {
+            throw new PookieException("Please provide at least one task index!");
+        }
+
+        String[] indicesArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, indicesArgs, 0, args.length - 1);
+
+        List<Integer> indices = parseTaskIndices(taskList, indicesArgs);
+        List<Task> tasks = getTasksByIndices(taskList, indices);
+
+        for (Task task : tasks) {
+            operation.apply(task);
+        }
+        saveTaskList(taskList, storage);
+
+        String header = indices.size() == 1 ? singularMsg : pluralMsg;
+        return formatTasksWithIndices(header, indices, tasks);
+    }
 }

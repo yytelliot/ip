@@ -21,7 +21,7 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Hello! I'm Pookie :3").append("\n");
-        sb.append("What can I do for you? OwO").append("\n");
+        sb.append("What can I do for you? OwO");
 
         return sb.toString();
     }
