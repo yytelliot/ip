@@ -8,6 +8,8 @@ import pookie.exception.PookieException;
 import pookie.storage.Storage;
 import pookie.task.Task;
 import pookie.task.TaskList;
+import pookie.util.IndexParser;
+import pookie.util.TaskFormatter;
 
 /**
  * Abstract class representing a command.
@@ -16,6 +18,9 @@ public abstract class Command {
 
     /** Minimum number of arguments required for index-based commands. */
     protected static final int MIN_INDEX_COMMAND_ARGS = 2;
+
+    private static final IndexParser INDEX_PARSER = new IndexParser();
+    private static final TaskFormatter FORMATTER = new TaskFormatter();
 
     /**
      * Executes the command with the given task list and storage.
@@ -74,29 +79,15 @@ public abstract class Command {
 
     /**
      * Formats a list of tasks with numbering.
-     * Used by commands that display multiple tasks (List, Find).
      *
      * @param taskList the task list to format
      * @param header the header message
      * @return a formatted string with numbered tasks
      */
     protected String formatTaskList(TaskList taskList, String header) {
-        StringBuilder sb = new StringBuilder(header).append("\n");
-        for (int i = 0; i < taskList.getTaskCount(); i++) {
-            sb.append((i + 1)).append(". ")
-                    .append(taskList.getTask(i))
-                    .append("\n");
-        }
-        return sb.toString().trim();
+        return FORMATTER.formatTaskList(taskList, header);
     }
 
-    /**
-     * Retrieves tasks by their 0-based indices.
-     *
-     * @param taskList the task list to retrieve from
-     * @param indices list of 0-based indices
-     * @return list of tasks at the specified indices
-     */
     /**
      * Retrieves tasks by their 0-based indices.
      *
@@ -113,8 +104,7 @@ public abstract class Command {
     }
 
     /**
-     * Formats a list of tasks, displaying each with its original position number from the task list.
-     * Used to show which specific tasks were affected by batch operations.
+     * Formats a list of tasks, displaying each with its original position number.
      *
      * @param header the header message to display
      * @param indices the 0-based indices corresponding to each task's original position
@@ -122,18 +112,11 @@ public abstract class Command {
      * @return a string with the header followed by tasks labeled with their original 1-based positions
      */
     protected String formatTasksWithIndices(String header, List<Integer> indices, List<Task> tasks) {
-        StringBuilder sb = new StringBuilder(header).append("\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append("  ").append(indices.get(i) + 1).append(". ")
-                    .append(tasks.get(i))
-                    .append("\n");
-        }
-        return sb.toString().trim();
+        return FORMATTER.formatTasksWithIndices(header, indices, tasks);
     }
 
     /**
      * Parses task indices from user input, supporting both single indices and ranges.
-     * Ranges are specified with hyphen notation (e.g., "1-3").
      *
      * @param taskList the task list for validation
      * @param indexStrs array of index strings to parse
@@ -141,62 +124,7 @@ public abstract class Command {
      * @throws PookieException if any index is invalid or out of bounds
      */
     protected List<Integer> parseTaskIndices(TaskList taskList, String[] indexStrs) throws PookieException {
-        List<Integer> indices = new ArrayList<>();
-        for (String indexStr : indexStrs) {
-            if (indexStr.contains("-")) {
-                indices.addAll(parseRange(taskList, indexStr));
-                continue;
-            }
-
-            indices.add(parseSingleIndex(taskList, indexStr));
-        }
-        return indices;
-    }
-    /**
-     * Parses a range of task indices (e.g., "1-3").
-     *
-     * @param taskList the task list for validation
-     * @param rangeStr the range string in format "start-end"
-     * @return list of 0-based indices within the range (inclusive)
-     * @throws PookieException if range format is invalid or indices are out of bounds
-     */    private List<Integer> parseRange(TaskList taskList, String rangeStr) throws PookieException {
-        String[] parts = rangeStr.split("-", -1);
-        List<Integer> indices = new ArrayList<>();
-        if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
-            throw new PookieException("Owo? The index range " + rangeStr + " is invalid! >w<!");
-        }
-
-        int startIndex = parseSingleIndex(taskList, parts[0]);
-        int endIndex = parseSingleIndex(taskList, parts[1]);
-        if (startIndex > endIndex) {
-            throw new PookieException("Owo? The index range " + rangeStr + " is invalid! >w<!");
-        }
-        for (int i = startIndex; i <= endIndex; i++) {
-            indices.add(i);
-        }
-        return indices;
-    }
-
-    /**
-     * Parses a single task index from user input (1-indexed) to internal format (0-indexed).
-     *
-     * @param taskList the task list for bounds validation
-     * @param indexStr the string representation of the index
-     * @return the 0-based index
-     * @throws PookieException if the index is not a valid number or is out of bounds
-     */
-    private int parseSingleIndex(TaskList taskList, String indexStr) throws PookieException {
-        try {
-            int index = Integer.parseInt(indexStr) - 1;
-            if (index < 0 || index >= taskList.getTaskCount()) {
-                throw new IndexOutOfBoundsException();
-            }
-            return index;
-        } catch (NumberFormatException e) {
-            throw new PookieException("Owo? The index " + indexStr + " is not a number! >w<!");
-        } catch (IndexOutOfBoundsException e) {
-            throw new PookieException("Owo? The task index " + indexStr + " doesn't exist! >w<!");
-        }
+        return INDEX_PARSER.parseTaskIndices(taskList, indexStrs);
     }
 
     /**
