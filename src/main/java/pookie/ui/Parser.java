@@ -9,6 +9,7 @@ import pookie.command.HelpCommand;
 import pookie.command.ListCommand;
 import pookie.command.MarkCommand;
 import pookie.command.UnmarkCommand;
+import pookie.exception.PookieException;
 
 /**
  * Parses user input into commands.
@@ -21,7 +22,7 @@ public class Parser {
      * @param input the user input string
      * @return the corresponding Command object
      */
-    public Command parse(String input) {
+    public Command parse(String input) throws PookieException {
         assert input != null : "Input must not be null";
         input = input.trim();
 
@@ -58,7 +59,7 @@ public class Parser {
                 return new DeleteCommand(parts);
             }
             default -> {
-                return new AddCommand(parts);
+                throw new PookieException("Pookie doesn't know that command. I don't know that command.");
             }
         }
 

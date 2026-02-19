@@ -23,7 +23,7 @@ class BatchCommandTest {
     void setUp() {
         taskList = new TaskList();
         storage = new Storage(Paths.get("test_data.txt"));
-        
+
         // Add 5 test tasks
         taskList.addTask(new TodoTask("Task 1"));
         taskList.addTask(new TodoTask("Task 2"));
@@ -38,7 +38,7 @@ class BatchCommandTest {
     void markCommand_singleIndex_marksOneTask() throws PookieException {
         MarkCommand cmd = new MarkCommand(new String[]{"mark", "1"});
         cmd.execute(taskList, storage);
-        
+
         assertTrue(taskList.getTask(0).isDone());
         assertFalse(taskList.getTask(1).isDone());
     }
@@ -47,7 +47,7 @@ class BatchCommandTest {
     void markCommand_multipleIndices_marksMultipleTasks() throws PookieException {
         MarkCommand cmd = new MarkCommand(new String[]{"mark", "1", "3", "5"});
         cmd.execute(taskList, storage);
-        
+
         assertTrue(taskList.getTask(0).isDone());
         assertFalse(taskList.getTask(1).isDone());
         assertTrue(taskList.getTask(2).isDone());
@@ -59,7 +59,7 @@ class BatchCommandTest {
     void markCommand_range_marksTasksInRange() throws PookieException {
         MarkCommand cmd = new MarkCommand(new String[]{"mark", "2-4"});
         cmd.execute(taskList, storage);
-        
+
         assertFalse(taskList.getTask(0).isDone());
         assertTrue(taskList.getTask(1).isDone());
         assertTrue(taskList.getTask(2).isDone());
@@ -71,7 +71,7 @@ class BatchCommandTest {
     void markCommand_mixedRangeAndSingle_marksCorrectTasks() throws PookieException {
         MarkCommand cmd = new MarkCommand(new String[]{"mark", "1", "3-4"});
         cmd.execute(taskList, storage);
-        
+
         assertTrue(taskList.getTask(0).isDone());
         assertFalse(taskList.getTask(1).isDone());
         assertTrue(taskList.getTask(2).isDone());
@@ -111,10 +111,10 @@ class BatchCommandTest {
         for (int i = 0; i < 5; i++) {
             taskList.getTask(i).markAsDone();
         }
-        
+
         UnmarkCommand cmd = new UnmarkCommand(new String[]{"unmark", "2"});
         cmd.execute(taskList, storage);
-        
+
         assertTrue(taskList.getTask(0).isDone());
         assertFalse(taskList.getTask(1).isDone());
         assertTrue(taskList.getTask(2).isDone());
@@ -126,10 +126,10 @@ class BatchCommandTest {
         for (int i = 0; i < 5; i++) {
             taskList.getTask(i).markAsDone();
         }
-        
+
         UnmarkCommand cmd = new UnmarkCommand(new String[]{"unmark", "2-4"});
         cmd.execute(taskList, storage);
-        
+
         assertTrue(taskList.getTask(0).isDone());
         assertFalse(taskList.getTask(1).isDone());
         assertFalse(taskList.getTask(2).isDone());
@@ -143,7 +143,7 @@ class BatchCommandTest {
     void deleteCommand_singleIndex_deletesOneTask() throws PookieException {
         DeleteCommand cmd = new DeleteCommand(new String[]{"delete", "2"});
         cmd.execute(taskList, storage);
-        
+
         assertEquals(4, taskList.getTaskCount());
         assertEquals("Task 1", taskList.getTask(0).getDescription());
         assertEquals("Task 3", taskList.getTask(1).getDescription());
@@ -153,7 +153,7 @@ class BatchCommandTest {
     void deleteCommand_multipleIndices_deletesMultipleTasks() throws PookieException {
         DeleteCommand cmd = new DeleteCommand(new String[]{"delete", "1", "3", "5"});
         cmd.execute(taskList, storage);
-        
+
         assertEquals(2, taskList.getTaskCount());
         assertEquals("Task 2", taskList.getTask(0).getDescription());
         assertEquals("Task 4", taskList.getTask(1).getDescription());
@@ -163,7 +163,7 @@ class BatchCommandTest {
     void deleteCommand_range_deletesTasksInRange() throws PookieException {
         DeleteCommand cmd = new DeleteCommand(new String[]{"delete", "2-4"});
         cmd.execute(taskList, storage);
-        
+
         assertEquals(2, taskList.getTaskCount());
         assertEquals("Task 1", taskList.getTask(0).getDescription());
         assertEquals("Task 5", taskList.getTask(1).getDescription());
@@ -173,7 +173,7 @@ class BatchCommandTest {
     void deleteCommand_mixedRangeAndSingle_deletesCorrectTasks() throws PookieException {
         DeleteCommand cmd = new DeleteCommand(new String[]{"delete", "1", "3-4"});
         cmd.execute(taskList, storage);
-        
+
         assertEquals(2, taskList.getTaskCount());
         assertEquals("Task 2", taskList.getTask(0).getDescription());
         assertEquals("Task 5", taskList.getTask(1).getDescription());
@@ -221,7 +221,7 @@ class BatchCommandTest {
     void deleteCommand_allTasksInRange_leavesEmptyList() throws PookieException {
         DeleteCommand cmd = new DeleteCommand(new String[]{"delete", "1-5"});
         cmd.execute(taskList, storage);
-        
+
         assertEquals(0, taskList.getTaskCount());
     }
 }

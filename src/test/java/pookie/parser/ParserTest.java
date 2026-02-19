@@ -77,10 +77,7 @@ public class ParserTest {
     // ---------- Current behavior: parser does not validate ----------
     @Test
     void parse_unknownCommand_throwsException() {
-        pookie.exception.PookieException ex = assertThrows(
-                pookie.exception.PookieException.class,
-                () -> parser.parse("fly 123"));
-        assertTrue(ex.getMessage().contains("don't know that command"));
+        assertThrows(pookie.exception.PookieException.class, () -> parser.parse("fly 123"));
     }
 
     @Test

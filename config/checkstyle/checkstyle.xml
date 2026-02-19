@@ -49,15 +49,15 @@
     -->
 
     <!-- Checks the ordering of import statements follow the rules that the default Eclipse formatter uses.
-    The order rule "STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE" consists of:
-      1. STATIC: static imports
-      2. STANDARD_JAVA_PACKAGE: standard java/javax imports
+    The order rule "STANDARD_JAVA_PACKAGE###STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE" consists of:
+      1. STANDARD_JAVA_PACKAGE: standard java/javax imports
+      2. STATIC: static imports
       3. SPECIAL_IMPORTS: defined as org imports
       4. THIRD_PARTY_PACKAGE: defined as com imports
     -->
     <module name="CustomImportOrder">
         <property name="customImportOrderRules"
-            value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
+          value="STANDARD_JAVA_PACKAGE###STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
         <property name="specialImportsRegExp" value="^org\."/>
         <property name="thirdPartyPackageRegExp" value="^com\."/>
         <property name="sortImportsInGroupAlphabetically" value="true"/>

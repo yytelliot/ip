@@ -1,16 +1,24 @@
 {
   "java.project.outputPath": "bin",
-    "java.completion.importOrder": [
+  "java.completion.importOrder": [
     "#",
     "java",
     "javax",
     "org",
-    "com",
-    ""
+    "com"
   ],
+  "java.saveActions.organizeImports": false,
+  "java.saveActions.cleanUp": false,
+  "java.format.enabled": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "never",
+    "source.fixAll": "never"
+  },
   "[java]": {
+    "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": "explicit"
+      "source.organizeImports": "never"
     }
   }
 }
