@@ -97,6 +97,13 @@ public abstract class Command {
      * @param indices list of 0-based indices
      * @return list of tasks at the specified indices
      */
+    /**
+     * Retrieves tasks by their 0-based indices.
+     *
+     * @param taskList the task list to retrieve from
+     * @param indices list of 0-based indices
+     * @return list of tasks at the specified indices
+     */
     protected List<Task> getTasksByIndices(TaskList taskList, List<Integer> indices) {
         List<Task> tasks = new ArrayList<>();
         for (int index : indices) {
@@ -124,6 +131,15 @@ public abstract class Command {
         return sb.toString().trim();
     }
 
+    /**
+     * Parses task indices from user input, supporting both single indices and ranges.
+     * Ranges are specified with hyphen notation (e.g., "1-3").
+     *
+     * @param taskList the task list for validation
+     * @param indexStrs array of index strings to parse
+     * @return list of 0-based indices
+     * @throws PookieException if any index is invalid or out of bounds
+     */
     protected List<Integer> parseTaskIndices(TaskList taskList, String[] indexStrs) throws PookieException {
         List<Integer> indices = new ArrayList<>();
         for (String indexStr : indexStrs) {
@@ -136,8 +152,14 @@ public abstract class Command {
         }
         return indices;
     }
-
-    private List<Integer> parseRange(TaskList taskList, String rangeStr) throws PookieException {
+    /**
+     * Parses a range of task indices (e.g., "1-3").
+     *
+     * @param taskList the task list for validation
+     * @param rangeStr the range string in format "start-end"
+     * @return list of 0-based indices within the range (inclusive)
+     * @throws PookieException if range format is invalid or indices are out of bounds
+     */    private List<Integer> parseRange(TaskList taskList, String rangeStr) throws PookieException {
         String[] parts = rangeStr.split("-", -1);
         List<Integer> indices = new ArrayList<>();
         if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
@@ -155,6 +177,14 @@ public abstract class Command {
         return indices;
     }
 
+    /**
+     * Parses a single task index from user input (1-indexed) to internal format (0-indexed).
+     *
+     * @param taskList the task list for bounds validation
+     * @param indexStr the string representation of the index
+     * @return the 0-based index
+     * @throws PookieException if the index is not a valid number or is out of bounds
+     */
     private int parseSingleIndex(TaskList taskList, String indexStr) throws PookieException {
         try {
             int index = Integer.parseInt(indexStr) - 1;

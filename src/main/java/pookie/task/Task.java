@@ -23,6 +23,11 @@ public abstract class Task {
         return isDone;
     }
 
+    /**
+     * Returns the type identifier for this task.
+     *
+     * @return the task type (e.g., "T" for Todo, "D" for Deadline, "E" for Event)
+     */
     public abstract String getType();
 
     public void markAsDone() {
@@ -37,6 +42,11 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Returns a string representation of the task in the format [Type][Status] Description.
+     *
+     * @return formatted string representation of the task
+     */
     @Override
     public String toString() {
         String statusIcon = isDone() ? "[X]" : "[ ]";
