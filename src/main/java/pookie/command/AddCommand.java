@@ -114,7 +114,7 @@ public class AddCommand extends Command {
 
     /**
      * Creates a deadline task from the command arguments.
-     * Expects format: deadline <description> /by <date>
+     * Expects format: deadline &lt;description&gt; /by &lt;date&gt;
      *
      * @return a new DeadlineTask with the provided description and deadline
      * @throws PookieException if required fields are missing or date format is invalid
@@ -149,7 +149,7 @@ public class AddCommand extends Command {
 
     /**
      * Creates an event task from the command arguments.
-     * Expects format: event <description> /from <start date> /to <end date>
+     * Expects format: event &lt;description&gt; /from &lt;start date&gt; /to &lt;end date&gt;
      *
      * @return a new EventTask with the provided description and date range
      * @throws PookieException if required fields are missing or date formats are invalid

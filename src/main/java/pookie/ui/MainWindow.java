@@ -31,6 +31,10 @@ public class MainWindow extends AnchorPane {
     private Image pookieImage = new Image(this.getClass().getResourceAsStream("/images/Pookie.png"));
     private Ui ui = new Ui();
 
+    /**
+     * Initializes the main window.
+     * Binds the scroll pane vvalue to the dialog container height and displays a welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

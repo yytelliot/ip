@@ -22,6 +22,11 @@ public class Storage {
 
     private final Path filePath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filePath the path to the storage file
+     */
     public Storage(Path filePath) {
         assert filePath != null : "Storage file path must not be null";
         this.filePath = filePath;
