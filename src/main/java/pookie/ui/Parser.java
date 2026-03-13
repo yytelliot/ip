@@ -59,7 +59,7 @@ public class Parser {
                 return new DeleteCommand(parts);
             }
             default -> {
-                throw new PookieException("Pookie doesn't know that command. I don't know that command.");
+                throw new PookieException("Pookie doesn't know that command.");
             }
         }
 
